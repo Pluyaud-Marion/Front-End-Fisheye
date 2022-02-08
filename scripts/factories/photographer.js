@@ -19,7 +19,7 @@ function photographerFactory(data) {
 		
 		//création des balises à mettre dans balise section
 		const img = document.createElement( "img" );
-		img.setAttribute("src", picture);
+		img.setAttribute("src", `../../${picture}`);
 		const h2 = document.createElement( "h2" );
 		h2.textContent = name;
 		const tagCity = document.createElement( "span" );
