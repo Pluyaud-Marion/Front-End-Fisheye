@@ -16,26 +16,32 @@ async function displayDataPhotographers(photographers) {
 	const urlPhotographer = window.location.search;
 	const urlSearchParams = new URLSearchParams(urlPhotographer);
 	const idPhotographer = Number(urlSearchParams.get("id")); // l'id du photographe visité et le passe de string à number
-	console.log(idPhotographer);
-
 	const photographHeader = document.querySelector(".photograph-header");
+	const containerButtonInfos = document.querySelector(".container-button-infos");
 
 	for (photographer of photographers) {
 		if (idPhotographer === photographer.id) { // cible le photographe
+			const divHeader = document.createElement("div");
+			containerButtonInfos.appendChild(divHeader);
+			divHeader.className = "container-infos";
+
+
 			const tagH1 = document.createElement("h1");
-			photographHeader.appendChild(tagH1);
+			divHeader.appendChild(tagH1);
 			tagH1.innerHTML = photographer.name; 
-      
-			const tagCountry = document.createElement("span");
-			photographHeader.appendChild(tagCountry);
-			tagCountry.innerHTML = photographer.country;
 
 			const tagCity = document.createElement("span");
-			photographHeader.appendChild(tagCity);
-			tagCity.innerHTML = photographer.city;
+			divHeader.appendChild(tagCity);
+			tagCity.innerHTML = photographer.city + ", ";
+			tagCity.className = "city-country";
+      
+			const tagCountry = document.createElement("span");
+			divHeader.appendChild(tagCountry);
+			tagCountry.innerHTML = photographer.country;
+			tagCountry.className = "city-country";
 
 			const tagLine = document.createElement("p");
-			photographHeader.appendChild(tagLine);
+			divHeader.appendChild(tagLine);
 			tagLine.innerHTML = photographer.tagline;
 
 			const tagImg = document.createElement("img");

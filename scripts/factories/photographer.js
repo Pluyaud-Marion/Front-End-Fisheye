@@ -22,10 +22,10 @@ function photographerFactory(data) {
 		img.setAttribute("src", picture);
 		const h2 = document.createElement( "h2" );
 		h2.textContent = name;
-		const tagCity = document.createElement( "span" );
-		tagCity.innerHTML = city;
-		const tagCountry = document.createElement( "span" );
-		tagCountry.innerHTML = country;
+
+		const tagCityCountry = document.createElement( "span" );
+		tagCityCountry.innerHTML = city + ", "  + country;
+
 		const tagPrice = document.createElement( "span");
 		tagPrice.innerHTML = price + "€/jour";
 		const pTagline = document.createElement( "p" );
@@ -34,8 +34,7 @@ function photographerFactory(data) {
 		// ajout des balises dans la balise article
 		tagArticle.appendChild(img);
 		tagArticle.appendChild(h2);
-		tagArticle.appendChild(tagCity);
-		tagArticle.appendChild(tagCountry);
+		tagArticle.appendChild(tagCityCountry);
 		tagArticle.appendChild(pTagline);
 		tagArticle.appendChild(tagPrice);
 

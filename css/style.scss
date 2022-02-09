@@ -1,8 +1,11 @@
+@import"./mixin-variables";
 @import url("photographer.css");
+
 
 body {
     font-family: "DM Sans", sans-serif;
     margin: 0;
+    margin-bottom: 5%;
 }
 
 
@@ -15,7 +18,7 @@ header {
 }
 
 h1 {
-    color: #901C1C;
+    color: $primary-color;
     margin-right: 100px;
 }
 
@@ -29,6 +32,9 @@ h1 {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 70px;
     margin-top: 100px;
+    a {
+        text-decoration: none;
+    }
 }
 
 .photographer_section article {
@@ -37,14 +43,34 @@ h1 {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    
+    p{
+        font-size: 12px;
+        color: black;
+        margin: 2% auto;
+        +span{
+            color: grey;
+            font-size: 12px;
+        }
+    }
+  
 }
 
 .photographer_section article h2 {
     color: #D3573C;
-    font-size: 36px;
+    font-size: 25px;
+    text-align: center;
+    margin: 3% auto;
+    +span {
+        color: $primary-color;
+        font-size: 12px;
+    }
+
 }
 
 .photographer_section article img {
     height: 200px;
     width: 200px;
+    clip-path: ellipse(42% 42%);
+    object-fit: cover;
 }

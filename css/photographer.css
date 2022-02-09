@@ -4,17 +4,15 @@
 
 .photograph-header {
   background-color: #FAFAFA;
-  height: 300px;
   margin: 0 100px;
 }
 
 .contact_button {
-  font-size: 20px;
+  font-size: 15px;
   font-weight: bold;
   color: white;
-  padding: 11px;
-  width: 170px;
-  height: 70px;
+  width: 117px;
+  height: 50px;
   border: none;
   background-color: #901C1C;
   border-radius: 5px;
@@ -102,5 +100,37 @@ form input {
 
 .photo-page-photographe {
   width: 20%;
+  -webkit-clip-path: ellipse(43% 43%);
+          clip-path: ellipse(43% 43%);
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.photograph-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.photograph-header .container-button-infos {
+  border: red solid;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-left: 5%;
+}
+
+.photograph-header .container-button-infos .city-country {
+  color: #901C1C;
 }
 /*# sourceMappingURL=photographer.css.map */

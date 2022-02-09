@@ -1,22 +1,22 @@
+@import"./mixin-variables";
+
 #contact_modal {
   display: none;
 }
 
 .photograph-header {
   background-color: #FAFAFA;
-  height: 300px;
   margin: 0 100px;
 }
 
 .contact_button {
-  font-size: 20px;
+  font-size: 15px;
   font-weight: bold;
   color: white;
-  padding: 11px;
-  width: 170px;
-  height: 70px;
+  width: 117px;
+  height: 50px;
   border: none;
-  background-color: #901C1C;
+  background-color: $primary-color;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -77,4 +77,24 @@ form input {
 
 .photo-page-photographe{
   width: 20%;
+  clip-path: ellipse(43% 43%);
+  object-fit: cover;
 }
+
+.photograph-header{
+  display: flex;
+  justify-content: space-between;
+  .container-button-infos {
+    border: red solid;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin-left: 5%;
+    .city-country {
+      color: $primary-color;
+    }
+  }
+
+  
+}
+
