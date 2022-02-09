@@ -48,7 +48,7 @@ async function displayData(photographers) {
 	photographers.forEach((photographer) => {
 		const photographerModel = photographerFactory(photographer);
 		const userCardDOM = photographerModel.getUserCardDOM();
-		photographersSection.appendChild(userCardDOM);
+		photographersSection.appendChild(userCardDOM); // pour injecter la balise A
 	});
 }
 
