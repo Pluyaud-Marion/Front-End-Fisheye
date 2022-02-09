@@ -1,6 +1,12 @@
 /* eslint-disable no-undef */
 //Mettre le code JavaScript lié à la page photographer.html
 
+const urlPhotographer = window.location.search;
+const urlSearchParams = new URLSearchParams(urlPhotographer);
+const idPhotographer = Number(urlSearchParams.get("id")); 
+
+const arrayLikes = [];
+
 async function getElementsPhotographers(){
 	let photographers = [];
 	
@@ -29,14 +35,11 @@ async function getMediaPhotographers(){
 }
 
 async function displayDataPhotographers(photographers) {
-	const urlPhotographer = window.location.search;
-	const urlSearchParams = new URLSearchParams(urlPhotographer);
-	const idPhotographer = Number(urlSearchParams.get("id")); // l'id du photographe visité et le passe de string à number
 	const photographHeader = document.querySelector(".photograph-header");
 	const containerButtonInfos = document.querySelector(".container-button-infos");
 
 	for (photographer of photographers) {
-		if (idPhotographer === photographer.id) { // cible le photographe
+		if (idPhotographer === photographer.id) { // cible le photographe avec l'id dans l'url 
 			const divHeader = document.createElement("div");
 			containerButtonInfos.appendChild(divHeader);
 			divHeader.className = "container-infos";
@@ -69,15 +72,9 @@ async function displayDataPhotographers(photographers) {
 }
 
 async function displayMediaPhotographers(media) {
-	const urlPhotographer = window.location.search;
-	const urlSearchParams = new URLSearchParams(urlPhotographer);
-	const idPhotographer = Number(urlSearchParams.get("id")); // l'id du photographe visité et le passe de string à number
 	const photographGalery = document.querySelector(".photograph-galery");
-
-
 	for (item of media) {
-		if (idPhotographer === item.photographerId) { // cible le photographe
-			console.log(item.photographerId);
+		if (idPhotographer === item.photographerId) { // cible le photographe avec l'id dans l'url 
 			const tagArticle = document.createElement("article");
 			photographGalery.appendChild(tagArticle);
 
@@ -111,43 +108,60 @@ async function displayMediaPhotographers(media) {
 	}
 }
 
-
 function addLike(media){
-	const urlPhotographer = window.location.search;
-	const urlSearchParams = new URLSearchParams(urlPhotographer);
-	const idPhotographer = Number(urlSearchParams.get("id")); 
-	
 	for (item of media) {
-		if (idPhotographer === item.photographerId){ //cile le photographe
-
-			
+		if (idPhotographer === item.photographerId){ //cible le photographe
 			const tagNumberLike = document.getElementById(`${item.id}`);
-
-			console.log("balise span nb de like",tagNumberLike);
-
-			//let numberLike = Number(tagNumberLike.innerText);
-			//console.log("nombre de likes", numberLike);
-
+			
+			let numberLikes = Number(tagNumberLike.innerHTML); //transforme en number le numbre de likes
+			
 			const idTagNumberLike = tagNumberLike.id;
-			//console.log("id de la balise span nombre", idTagNumberLike);
-	
 			const iconLike = document.getElementById(`like-${item.id}`);
-			//console.log("balise i du coeur", iconLike);
-
 			const idIconLike = iconLike.id.split("-"); //retourne une tableau autour du - le 2ème élément du tableau est l'id
-			//console.log(idIconLike[1]);
-			//console.log("id de la balise coeur", idIconLike);
 		
 			iconLike.addEventListener("click", () => {
-				console.log(idIconLike[1]);
-				console.log(idTagNumberLike);
 				if(idIconLike[1] === idTagNumberLike){
 					tagNumberLike.innerHTML++;
 				}
 			});
+			console.log(numberLikes);
+			arrayLikes.push(numberLikes); // push dans le tableau le nombre de likes
+			
 		}
 	}
+
+	
 }
+
+
+
+function cardLikesAndPrice(photographers) {
+	const tagPriceTotalLike = document.querySelector(".price-total-like");
+	// création span prix
+	const tagPrice = document.createElement("span");
+	tagPriceTotalLike.appendChild(tagPrice);
+
+	// création span total des likes
+	const tagTotalLike = document.createElement("span");
+	tagPriceTotalLike.appendChild(tagTotalLike);
+
+	// boucle sur chaque photographe pour récupérer dans le Json le prix
+	for(photographer of photographers) {
+		if (idPhotographer === photographer.id){ //cible le photographe
+			tagPrice.innerHTML = photographer.price + "€ / jour";
+		}
+	}
+
+	// reducer pour additionner tous les likes (dans le tableau)
+	const reducer = (previousValue, currentValue) => previousValue + currentValue;
+	const totalLikes = arrayLikes.reduce(reducer);
+	console.log(totalLikes);
+	tagTotalLike.innerHTML = totalLikes;
+}
+
+
+
+
 async function init() {
 	// Récupère les datas des photographes
 	const { photographers } = await getElementsPhotographers();
@@ -155,6 +169,7 @@ async function init() {
 	displayDataPhotographers(photographers);
 	displayMediaPhotographers(media);
 	addLike(media);
+	cardLikesAndPrice(photographers);
 }
 
 init();
