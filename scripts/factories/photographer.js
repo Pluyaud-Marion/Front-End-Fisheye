@@ -5,6 +5,9 @@ function photographerFactory(data) {
 
 	const picture = `assets/photographers/${portrait}`;
 
+	/*
+	Sur la page index, affiche les infos sur tous les photographes
+	*/
 	function getUserCardDOM() {
 		//création du a dans balise section avec href de base
 		const tagPhotographerSection = document.querySelector(".photographer_section");

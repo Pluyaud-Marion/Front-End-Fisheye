@@ -11,7 +11,6 @@
 
 .contact_button {
   font-size: 15px;
-  font-weight: bold;
   color: white;
   width: 117px;
   height: 50px;
@@ -84,8 +83,8 @@ form input {
 .photograph-header{
   display: flex;
   justify-content: space-between;
+  height: 180px;
   .container-button-infos {
-    border: red solid;
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
@@ -93,8 +92,40 @@ form input {
     .city-country {
       color: $primary-color;
     }
+    p{
+      font-size: 13px;
+    }
   }
+}
 
-  
+.photograph-galery{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 100px 100px;
+  article{
+    width: 300px;
+    height: 266px;
+    margin-bottom: 3%;
+    img{
+      width: 100%;
+      height: 90%;
+      object-fit: cover;
+      margin-bottom: -5%;
+    }
+    .container-title-like {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: $primary-color;
+      .container-like{
+        display: flex;
+        width: 13%;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+  }
+ 
 }
 
