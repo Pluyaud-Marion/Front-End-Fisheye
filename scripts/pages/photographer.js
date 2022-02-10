@@ -6,6 +6,7 @@ const urlSearchParams = new URLSearchParams(urlPhotographer);
 const idPhotographer = Number(urlSearchParams.get("id")); 
 
 const arrayLikes = [];
+//const arrayTitle = [];
 
 async function getElementsPhotographers(){
 	let photographers = [];
@@ -90,6 +91,9 @@ async function displayMediaPhotographers(media) {
 			divContainerTitleLike.appendChild(tagTitle);
 			tagTitle.innerHTML = item.title;
 
+			//	arrayTitle.push(item.title); // remplissage du tableau arrayTitle
+			
+
 			const divContainerLike = document.createElement("div");
 			divContainerTitleLike.appendChild(divContainerLike);
 			divContainerLike.className = "container-like";
@@ -106,6 +110,7 @@ async function displayMediaPhotographers(media) {
 
 		}
 	}
+	//console.log(arrayTitle);
 }
 
 function addLike(media){
@@ -124,15 +129,11 @@ function addLike(media){
 					tagNumberLike.innerHTML++;
 				}
 			});
-			console.log(numberLikes);
+			//console.log(numberLikes);
 			arrayLikes.push(numberLikes); // push dans le tableau le nombre de likes
-			
 		}
 	}
-
-	
 }
-
 
 
 function cardLikesAndPrice(photographers) {
@@ -141,9 +142,18 @@ function cardLikesAndPrice(photographers) {
 	const tagPrice = document.createElement("span");
 	tagPriceTotalLike.appendChild(tagPrice);
 
+	//création div globale nb likes + icone
+	const tagContainer = document.createElement("div");
+	tagPriceTotalLike.appendChild(tagContainer);
+	tagContainer.className = "likes";
+
 	// création span total des likes
 	const tagTotalLike = document.createElement("span");
-	tagPriceTotalLike.appendChild(tagTotalLike);
+	tagContainer.appendChild(tagTotalLike);
+
+	const like = document.createElement("i");
+	tagContainer.appendChild(like);
+	like.className = "fas fa-heart";
 
 	// boucle sur chaque photographe pour récupérer dans le Json le prix
 	for(photographer of photographers) {
@@ -155,11 +165,53 @@ function cardLikesAndPrice(photographers) {
 	// reducer pour additionner tous les likes (dans le tableau)
 	const reducer = (previousValue, currentValue) => previousValue + currentValue;
 	const totalLikes = arrayLikes.reduce(reducer);
-	console.log(totalLikes);
+	//console.log(totalLikes);
 	tagTotalLike.innerHTML = totalLikes;
 }
 
+function sort(media) {
+	const containerMedia = document.querySelector(".photograph-galery");
 
+	const select = document.querySelector("#select-sort");
+	select.value = -1; // 1er n'est pas affiché par défaut
+			
+	select.addEventListener("change", () => {
+		let valueSelect = select.value; // récupération de la valeur sélectionnée
+				
+		if (valueSelect === "popularity") {
+			//vide les médias
+			containerMedia.innerHTML = "";
+			/*
+					Méthode sort qui prend en paramètre une fonction de calcul par ordre inversé - retourne un nouveau tableau classé du plus petit au plus grand
+					Trie tous les médias du + grand au + petit like
+					*/
+			media.sort((a, b) =>{
+				return b.likes - a.likes;
+			});
+			//appel de la fonction qui affiche les médias = ne fait afficher qu
+			displayMediaPhotographers(media);
+					
+		} else if (valueSelect === "date") {
+			containerMedia.innerHTML = "";
+			
+			media.sort((a,b) => { //tri par date
+				return new Date(a.date) - new Date(b.date);
+			});
+			displayMediaPhotographers(media);
+		} else {
+			containerMedia.innerHTML = "";
+	
+			media.sort((a,b) => {
+				if (a.title < b.title)
+					return -1;
+			});
+			displayMediaPhotographers(media);
+		
+			
+		}
+	});
+	
+}
 
 
 async function init() {
@@ -170,6 +222,7 @@ async function init() {
 	displayMediaPhotographers(media);
 	addLike(media);
 	cardLikesAndPrice(photographers);
+	sort(media);
 }
 
 init();

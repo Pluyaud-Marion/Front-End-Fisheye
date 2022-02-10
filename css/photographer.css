@@ -146,7 +146,7 @@ form input {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  margin: 100px 100px;
+  margin: 50px 100px;
 }
 
 .photograph-galery article {
@@ -187,5 +187,51 @@ form input {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.price-total-like {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 17%;
+  height: 50px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #DB8876;
+  position: fixed;
+  bottom: 0;
+  right: 57px;
+}
+
+.price-total-like .likes {
+  width: 40%;
+}
+
+.price-total-like .likes .fas {
+  margin-left: 5%;
+}
+
+.sort {
+  margin: 10px 100px;
+}
+
+.sort .container-sort .text-sort {
+  font-weight: bold;
+  font-size: 17px;
+  margin-right: 3%;
+}
+
+.sort .container-sort #select-sort {
+  background-color: #901C1C;
+  color: #FFF;
+  padding: 0.5%;
+  border-radius: 5px;
 }
 /*# sourceMappingURL=photographer.css.map */
