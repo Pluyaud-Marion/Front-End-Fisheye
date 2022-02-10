@@ -163,6 +163,15 @@ form input {
   margin-bottom: -5%;
 }
 
+.photograph-galery article .video {
+  width: 100%;
+  height: 90%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-bottom: -5%;
+  border: red solid;
+}
+
 .photograph-galery article .container-title-like {
   display: -webkit-box;
   display: -ms-flexbox;

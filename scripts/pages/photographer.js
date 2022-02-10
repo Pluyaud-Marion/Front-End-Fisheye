@@ -6,7 +6,6 @@ const urlSearchParams = new URLSearchParams(urlPhotographer);
 const idPhotographer = Number(urlSearchParams.get("id")); 
 
 const arrayLikes = [];
-//const arrayTitle = [];
 
 async function getElementsPhotographers(){
 	let photographers = [];
@@ -73,53 +72,29 @@ async function displayDataPhotographers(photographers) {
 }
 
 async function displayMediaPhotographers(media) {
-	const photographGalery = document.querySelector(".photograph-galery");
+
 	for (item of media) {
 		if (idPhotographer === item.photographerId) { // cible le photographe avec l'id dans l'url 
-			const tagArticle = document.createElement("article");
-			photographGalery.appendChild(tagArticle);
-
-			const tagImg = document.createElement("img");
-			tagArticle.appendChild(tagImg);
-			tagImg.src = `assets/images/${item.photographerId}/${item.image}`;
-
-			const divContainerTitleLike = document.createElement("div");
-			tagArticle.appendChild(divContainerTitleLike);
-			divContainerTitleLike.className = "container-title-like";
-
-			const tagTitle = document.createElement("p");
-			divContainerTitleLike.appendChild(tagTitle);
-			tagTitle.innerHTML = item.title;
-
-			//	arrayTitle.push(item.title); // remplissage du tableau arrayTitle
+		
+			const factoryModel = displayPictureVideoFactory(item);
 			
-
-			const divContainerLike = document.createElement("div");
-			divContainerTitleLike.appendChild(divContainerLike);
-			divContainerLike.className = "container-like";
-
-			const tagLikes = document.createElement("span");
-			divContainerLike.appendChild(tagLikes);
-			tagLikes.innerHTML = item.likes;
-			tagLikes.id = `${item.id}`;
-			
-			const like = document.createElement("i");
-			divContainerLike.appendChild(like);
-			like.className = "fas fa-heart";
-			like.id = `like-${item.id}`;
-
+			if(item.image) {
+				factoryModel.createPicture(item);
+			} else {
+				factoryModel.createVideo(item);
+			}
 		}
 	}
-	//console.log(arrayTitle);
 }
 
 function addLike(media){
 	for (item of media) {
 		if (idPhotographer === item.photographerId){ //cible le photographe
 			const tagNumberLike = document.getElementById(`${item.id}`);
+			//console.log(tagNumberLike);
 			
 			let numberLikes = Number(tagNumberLike.innerHTML); //transforme en number le numbre de likes
-			
+			//console.log("avant", numberLikes);
 			const idTagNumberLike = tagNumberLike.id;
 			const iconLike = document.getElementById(`like-${item.id}`);
 			const idIconLike = iconLike.id.split("-"); //retourne une tableau autour du - le 2ème élément du tableau est l'id
@@ -127,10 +102,16 @@ function addLike(media){
 			iconLike.addEventListener("click", () => {
 				if(idIconLike[1] === idTagNumberLike){
 					tagNumberLike.innerHTML++;
+					// console.log("avant", numberLikes);
+					//console.log("apres", tagNumberLike.innerHTML);
+					//const newLike = tagNumberLike.innerHTML;
+					
+					// console.log(arrayLikes);
 				}
+				
 			});
-			//console.log(numberLikes);
-			arrayLikes.push(numberLikes); // push dans le tableau le nombre de likes
+			arrayLikes.push(numberLikes);
+			
 		}
 	}
 }

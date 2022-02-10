@@ -1,10 +1,14 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+
+// const urlPhotographer = window.location.search;
+// const urlSearchParams = new URLSearchParams(urlPhotographer);
+// const idPhotographer = Number(urlSearchParams.get("id")); 
 
 function photographerFactory(data) {
 	const { name, portrait, city, country, price, tagline, id } = data;
 
 	const picture = `assets/photographers/${portrait}`;
-
 	/*
 	Sur la page index, affiche les infos sur tous les photographes
 	*/
@@ -54,3 +58,47 @@ function photographerFactory(data) {
 	return { name, picture, city, country, price, tagline, getUserCardDOM };
 }
 
+function displayPictureVideoFactory(item){
+	const photographGalery = document.querySelector(".photograph-galery");
+	
+	const tagArticle = document.createElement("article");
+	photographGalery.appendChild(tagArticle);
+
+	const divContainerTitleLike = document.createElement("div");
+	tagArticle.appendChild(divContainerTitleLike);
+	divContainerTitleLike.className = "container-title-like";
+
+	const tagTitle = document.createElement("p");
+	divContainerTitleLike.appendChild(tagTitle);
+	tagTitle.innerHTML = item.title;
+
+	const divContainerLike = document.createElement("div");
+	divContainerTitleLike.appendChild(divContainerLike);
+	divContainerLike.className = "container-like";
+
+	const tagLikes = document.createElement("span");
+	divContainerLike.appendChild(tagLikes);
+	tagLikes.innerHTML = item.likes;
+	tagLikes.id = `${item.id}`;
+	
+	const like = document.createElement("i");
+	divContainerLike.appendChild(like);
+	like.className = "fas fa-heart";
+	like.id = `like-${item.id}`;
+
+
+	function createPicture(item) {
+		const tagImg = document.createElement("img");
+		tagArticle.prepend(tagImg); //après l'élément
+		tagImg.src = `assets/images/${item.photographerId}/${item.image}`;
+		tagImg.className = "picture";
+	}
+
+	function createVideo(item){
+		const tagVideo = document.createElement("video");
+		tagArticle.prepend(tagVideo); //après l'élémenet
+		tagVideo.src = `assets/images/${item.photographerId}/${item.video}`;
+		tagVideo.className = "video";
+	}
+	return {createVideo, createPicture};
+}
