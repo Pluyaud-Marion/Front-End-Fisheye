@@ -1,5 +1,5 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-//Mettre le code JavaScript lié à la page photographer.html
 
 const urlPhotographer = window.location.search;
 const urlSearchParams = new URLSearchParams(urlPhotographer);
@@ -44,7 +44,6 @@ async function displayDataPhotographers(photographers) {
 			containerButtonInfos.appendChild(divHeader);
 			divHeader.className = "container-infos";
 
-
 			const tagH1 = document.createElement("h1");
 			divHeader.appendChild(tagH1);
 			tagH1.innerHTML = photographer.name; 
@@ -72,15 +71,14 @@ async function displayDataPhotographers(photographers) {
 }
 
 async function displayMediaPhotographers(media) {
-
 	for (item of media) {
 		if (idPhotographer === item.photographerId) { // cible le photographe avec l'id dans l'url 
-		
-			const factoryModel = displayPictureVideoFactory(item);
 			
-			if(item.image) {
+			const factoryModel = displayPictureVideoFactory(item); //appel de la factory qui créé toutes les balises sauf img et video
+			
+			if(item.image) { //s'il y a une image, appelle la fonction qui créé balise img dans la factory
 				factoryModel.createPicture(item);
-			} else {
+			} else { // sinon = vidéo, appelle la fonction qui créé balise video dans la factory
 				factoryModel.createVideo(item);
 			}
 		}
@@ -187,13 +185,173 @@ function sort(media) {
 					return -1;
 			});
 			displayMediaPhotographers(media);
-		
-			
 		}
 	});
-	
 }
 
+
+class Lightbox {
+	
+	static init() {
+		const links = Array.from(document.querySelectorAll(".picture"));
+		const video = Array.from(document.querySelectorAll(".video"));
+		const gallery = links.map(link => link.getAttribute("src"));
+		const galleryVideo = video.map(item => item.getAttribute("src"));
+	
+		console.log(galleryVideo);
+		console.log(gallery);
+		links.forEach(link => {
+			link.addEventListener("click", e =>{
+				e.preventDefault();
+				new Lightbox(e.currentTarget.getAttribute("src"), gallery); //récupère l'url de l'image cliquée
+			});
+			
+		});
+
+		video.forEach(item => {
+			item.addEventListener("click", e =>{
+				e.preventDefault();
+				new Lightbox(e.currentTarget.getAttribute("src"), galleryVideo); //récupère l'url de l'image cliquée
+			});
+			
+		});
+	}
+	
+
+	constructor (url, gallery, galleryVideo) {
+		this.element = this.buildDOM(url); // construction du DOM à partir de l'url
+		this.gallery = gallery;
+		this.galleryVideo = galleryVideo;
+		
+		document.body.appendChild(this.element); // insertion dans le body des éléments
+
+		console.log(url);
+		if(url.includes("jpg")) {
+			this.loadImage(url);
+		} else if (url.includes("mp4")) {
+			this.loadVideo(url);
+		}
+		
+		
+		this.onKeyUp = this.onKeyUp.bind(this);
+		document.addEventListener("keyup", this.onKeyUp); // écoute le keyup
+	
+		
+	}
+
+	loadVideo(url) {
+		this.url = null;
+		const video = document.createElement("video");
+		const container = this.element.querySelector(".media-container");
+
+		container.innerHTML = "";
+
+		container.appendChild(video);
+		this.url = url;
+		video.src = url;
+		video.setAttribute("controls", "");
+		
+	}
+
+	loadImage(url) {
+		// const titleMedia = document.querySelectorAll(".title");
+		// for (title of titleMedia){
+		// 	const titre = title.innerHTML;
+		// 	console.log(titre);
+		// }
+	
+		this.url = null;
+		const image = new Image(); 
+		
+		const container = this.element.querySelector(".media-container");
+		// const loader = document.createElement("div");
+		// loader.classList.add("ligthbox-loader");
+		container.innerHTML = "";
+		// container.appendChild(loader);
+		// image.onload = () => {
+		// container.removeChild(loader);
+		container.appendChild(image);
+		this.url = url;
+		// };
+		image.src = url;
+	}
+	//méthode qui prend en paramètre un évenement de type Keyboard event = fermer avec esc clavier
+	onKeyUp(e) {
+		if (e.key === "Escape") {
+			this.close(e); // si la clé pressée est la touche esc -> appel de la méthode close
+		} else if (e.key === "ArrowLeft") {
+			this.prev(e); // si la clé pressée est la touche fleche gauche-> appel de la méthode prev
+		} else if (e.key === "ArrowRight") {
+			this.next(e); // si la clé pressée est la touche fleche droite -> appel de la méthode next
+		}
+	}
+
+	//méthode qui prend en paramètre un évenement de type mouse event
+	close(e) {
+		e.preventDefault();
+		this.element.classList.add("fadeOut");
+		this.element.parentElement.removeChild(this.element);
+		document.removeEventListener("keyup", this.onKeyUp);
+
+	}
+	//méthode qui prend en paramètre un évenement de type mouse event ou keyboard event
+	next(e) {
+		e.preventDefault();
+		// console.log(this.gallery);
+		// console.log(this.galleryVideo);
+		if(this.url.includes("jpg")) {
+			let i = this.gallery.findIndex(image => image === this.url);
+			if(i === this.gallery.length - 1 ) { //si c'est la dernière image
+				i = -1; // on revient à 0
+			}
+			this.loadImage(this.gallery[i + 1]);
+		} else if (this.url.includes("mp4")) {
+			let n = this.galleryVideo.findIndex(video => video === this.url);
+			if(n === this.galleryVideo.length - 1 ) { //si c'est la dernière image
+				n = -1; // on revient à 0
+			}
+			this.loadVideo(this.galleryVideo[n + 1]);
+		}
+	}
+
+	//méthode qui prend en paramètre un évenement de type mouse event ou keyboard event
+	prev(e) {
+		e.preventDefault();
+		console.log("video",this.galleryVideo);
+		console.log("image", this.gallery);
+		if(this.url.includes("jpg")) {
+			let i = this.gallery.findIndex(image => image === this.url);
+			if(i === 0 ) { // si c'est la première image
+				i = this.gallery.length; // on passe à la dernière image
+			}
+			this.loadImage(this.gallery[i - 1]);
+		} else if (this.url.includes("mp4")) {
+
+			let n = this.galleryVideo.findIndex(video => video === this.url);
+			if(n === 0 ) { // si c'est la première image
+				n = this.galleryVideo.length; // on passe à la dernière image
+			}
+			this.loadVideo(this.galleryVideo[n - 1]);
+		}
+	}
+
+	// création des éléments HTML + return 
+	buildDOM (url) {
+		const dom = document.createElement("section");
+		dom.classList.add("lightbox");
+		dom.innerHTML = 
+			`<button type="button" class="lightbox-close">Fermer</button>
+			<button type="button" class="lightbox-next">Suivant</button>
+			<button type="button" class="lightbox-prev">Précédent</button>
+			<div class="media-container"></div>
+			`;
+
+		dom.querySelector(".lightbox-close").addEventListener("click", this.close.bind(this));
+		dom.querySelector(".lightbox-next").addEventListener("click", this.next.bind(this));
+		dom.querySelector(".lightbox-prev").addEventListener("click", this.prev.bind(this));
+		return dom;
+	}
+}
 
 async function init() {
 	// Récupère les datas des photographes
@@ -204,6 +362,8 @@ async function init() {
 	addLike(media);
 	cardLikesAndPrice(photographers);
 	sort(media);
+	Lightbox.init();//
+
 }
 
 init();

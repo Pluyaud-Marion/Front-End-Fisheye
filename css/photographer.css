@@ -13,9 +13,21 @@
   width: 117px;
   height: 50px;
   border: none;
-  background-color: #901C1C;
+  background-color: #911C1C;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.contact_button:hover {
+  background-color: #DB8876;
+  color: black;
+  font-weight: 700;
+}
+
+.contact_button:focus {
+  background-color: #DB8876;
+  color: black;
+  font-weight: 700;
 }
 
 .modal {
@@ -129,12 +141,17 @@ form input {
   margin-left: 5%;
 }
 
-.photograph-header .container-button-infos .city-country {
+.photograph-header .container-button-infos .container-infos h1 {
+  color: #D3573C;
+}
+
+.photograph-header .container-button-infos .container-infos .city-country {
   color: #901C1C;
 }
 
-.photograph-header .container-button-infos p {
-  font-size: 13px;
+.photograph-header .container-button-infos .container-infos p {
+  font-size: 14px;
+  color: #525252;
 }
 
 .photograph-galery {
@@ -198,6 +215,10 @@ form input {
           align-items: center;
 }
 
+.photograph-galery article .container-title-like .container-like .fas {
+  color: #911C1C;
+}
+
 .price-total-like {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -232,15 +253,109 @@ form input {
 }
 
 .sort .container-sort .text-sort {
-  font-weight: bold;
+  font-weight: 700;
   font-size: 17px;
   margin-right: 3%;
 }
 
 .sort .container-sort #select-sort {
-  background-color: #901C1C;
+  background-color: #911C1C;
   color: #FFF;
   padding: 0.5%;
   border-radius: 5px;
+}
+
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 10;
+  -webkit-transition: opacity 300ms;
+  transition: opacity 300ms;
+}
+
+.lightbox .lightbox-next, .lightbox .lightbox-prev {
+  border: none;
+  background: url("../assets/icons/arrow.svg") center center/50px 50px no-repeat;
+  width: 50px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-top: -14px;
+  z-index: 11;
+  opacity: .5;
+  text-indent: -3000px;
+  cursor: pointer;
+  -webkit-transition: 300ms;
+  transition: 300ms;
+}
+
+.lightbox .lightbox-next:hover, .lightbox .lightbox-prev:hover {
+  opacity: 1;
+}
+
+.lightbox .lightbox-prev {
+  right: auto;
+  left: 0;
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.lightbox .lightbox-close {
+  border: none;
+  background: url("../assets/icons/close.svg") center center/100% 100% no-repeat transparent;
+  height: 15px;
+  width: 50px;
+  position: fixed;
+  top: 20px;
+  right: 7px;
+  text-indent: -3000px;
+  opacity: .5;
+  cursor: pointer;
+  -webkit-transition: 300ms;
+  transition: 300ms;
+  z-index: 12;
+}
+
+.lightbox .lightbox-close:hover {
+  opacity: 1;
+}
+
+.lightbox .lightbox.fadeOut {
+  opacity: 0;
+}
+
+.lightbox .media-container {
+  margin-left: 50px;
+  margin-right: 50px;
+  /*
+    pour centrer une image petite
+    */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  min-height: 100vh;
+}
+
+.lightbox .media-container img {
+  max-width: 100%;
+  height: 700px;
+}
+
+.lightbox .media-container .lightbox-loader {
+  width: 38px;
+  height: 38px;
+  opacity: .5;
+  background: url("../assets/icons/loader.svg") center center no-repeat;
 }
 /*# sourceMappingURL=photographer.css.map */

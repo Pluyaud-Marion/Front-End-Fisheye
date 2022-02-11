@@ -1,2 +1,12 @@
 $primary-color:#901C1C;
-$background-color:#DB8876;
+$background-color-modal-price:#DB8876;
+$background-color-button : #911C1C;
+$color-typo-price: #757575;
+$name-photographer: #D3573C;
+$tagline-photographer : #525252;
+
+@mixin hover-focus-button{
+  background-color: $background-color-modal-price;
+  color: black;
+  font-weight: 700;
+}

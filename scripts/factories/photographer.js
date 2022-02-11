@@ -58,7 +58,11 @@ function photographerFactory(data) {
 	return { name, picture, city, country, price, tagline, getUserCardDOM };
 }
 
+/*
+factory pour créer les balises de la galerie et injecter les éléments
+*/
 function displayPictureVideoFactory(item){
+	//création et injection de toutes les balises communes aux vidéos et img
 	const photographGalery = document.querySelector(".photograph-galery");
 	
 	const tagArticle = document.createElement("article");
@@ -70,6 +74,7 @@ function displayPictureVideoFactory(item){
 
 	const tagTitle = document.createElement("p");
 	divContainerTitleLike.appendChild(tagTitle);
+	tagTitle.className = "title";
 	tagTitle.innerHTML = item.title;
 
 	const divContainerLike = document.createElement("div");
@@ -86,14 +91,18 @@ function displayPictureVideoFactory(item){
 	like.className = "fas fa-heart";
 	like.id = `like-${item.id}`;
 
-
+	/*
+	fonction qui créé une balise img + chemin dans src
+	*/
 	function createPicture(item) {
 		const tagImg = document.createElement("img");
 		tagArticle.prepend(tagImg); //après l'élément
 		tagImg.src = `assets/images/${item.photographerId}/${item.image}`;
 		tagImg.className = "picture";
 	}
-
+	/*
+	fonction qui créé une balise img + chemin dans src
+	*/
 	function createVideo(item){
 		const tagVideo = document.createElement("video");
 		tagArticle.prepend(tagVideo); //après l'élémenet
