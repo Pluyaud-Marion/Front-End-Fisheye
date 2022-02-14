@@ -172,21 +172,12 @@ form input {
   margin-bottom: 3%;
 }
 
-.photograph-galery article img {
+.photograph-galery article .media {
   width: 100%;
   height: 90%;
   -o-object-fit: cover;
      object-fit: cover;
   margin-bottom: -5%;
-}
-
-.photograph-galery article .video {
-  width: 100%;
-  height: 90%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  margin-bottom: -5%;
-  border: red solid;
 }
 
 .photograph-galery article .container-title-like {
@@ -325,10 +316,6 @@ form input {
   opacity: 1;
 }
 
-.lightbox .lightbox.fadeOut {
-  opacity: 0;
-}
-
 .lightbox .media-container {
   margin-left: 50px;
   margin-right: 50px;
@@ -347,15 +334,8 @@ form input {
   min-height: 100vh;
 }
 
-.lightbox .media-container img {
+.lightbox .media-container img, .lightbox .media-container video {
   max-width: 100%;
   height: 700px;
-}
-
-.lightbox .media-container .lightbox-loader {
-  width: 38px;
-  height: 38px;
-  opacity: .5;
-  background: url("../assets/icons/loader.svg") center center no-repeat;
 }
 /*# sourceMappingURL=photographer.css.map */

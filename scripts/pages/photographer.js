@@ -193,89 +193,59 @@ function sort(media) {
 class Lightbox {
 	
 	static init() {
-		const links = Array.from(document.querySelectorAll(".picture"));
-		const video = Array.from(document.querySelectorAll(".video"));
+		// transforme objet en tableau et y met toutes les balises médias de la page(vidéos + photos)
+		const links = Array.from(document.querySelectorAll(".media"));
+		// créé un nouveau tableau et y met tous les liens vers les médias (récupère l'attribut src)
 		const gallery = links.map(link => link.getAttribute("src"));
-		const galleryVideo = video.map(item => item.getAttribute("src"));
-	
-		console.log(galleryVideo);
-		console.log(gallery);
+
+		//pour chaque balise média on créé une instance de Lightbox
 		links.forEach(link => {
 			link.addEventListener("click", e =>{
 				e.preventDefault();
 				new Lightbox(e.currentTarget.getAttribute("src"), gallery); //récupère l'url de l'image cliquée
-			});
-			
-		});
-
-		video.forEach(item => {
-			item.addEventListener("click", e =>{
-				e.preventDefault();
-				new Lightbox(e.currentTarget.getAttribute("src"), galleryVideo); //récupère l'url de l'image cliquée
-			});
-			
+			});	
 		});
 	}
-	
 
-	constructor (url, gallery, galleryVideo) {
+	constructor (url, gallery) {
 		this.element = this.buildDOM(url); // construction du DOM à partir de l'url
-		this.gallery = gallery;
-		this.galleryVideo = galleryVideo;
-		
+		this.gallery = gallery;		
 		document.body.appendChild(this.element); // insertion dans le body des éléments
 
-		console.log(url);
-		if(url.includes("jpg")) {
-			this.loadImage(url);
-		} else if (url.includes("mp4")) {
-			this.loadVideo(url);
-		}
-		
-		
+		this.loadMedia(url);
 		this.onKeyUp = this.onKeyUp.bind(this);
 		document.addEventListener("keyup", this.onKeyUp); // écoute le keyup
+	}
 	
-		
-	}
-
-	loadVideo(url) {
-		this.url = null;
-		const video = document.createElement("video");
+	/*
+	Créé la balise qui contient les éléments de la ligthbox
+	Permet de charger à l'intérieur les médias, différencie si image ou vidéo et créé les balises adaptées et met dans la balise l'attribut src qui correspond à l'image sur laquelle on a cliqué
+	*/
+	loadMedia(url) {
+		this.url = null;	
 		const container = this.element.querySelector(".media-container");
-
-		container.innerHTML = "";
-
-		container.appendChild(video);
-		this.url = url;
-		video.src = url;
-		video.setAttribute("controls", "");
-		
-	}
-
-	loadImage(url) {
-		// const titleMedia = document.querySelectorAll(".title");
-		// for (title of titleMedia){
-		// 	const titre = title.innerHTML;
-		// 	console.log(titre);
-		// }
+		container.innerHTML = "";	
+		this.url = url; //pour cibler l'image
 	
-		this.url = null;
-		const image = new Image(); 
-		
-		const container = this.element.querySelector(".media-container");
-		// const loader = document.createElement("div");
-		// loader.classList.add("ligthbox-loader");
-		container.innerHTML = "";
-		// container.appendChild(loader);
-		// image.onload = () => {
-		// container.removeChild(loader);
-		container.appendChild(image);
-		this.url = url;
-		// };
-		image.src = url;
+		if (this.url.includes("jpg")) {
+			const image = new Image(); 
+			container.appendChild(image);
+			image.src = url;
+		}
+	
+		if (this.url.includes("mp4")) {
+			const video = document.createElement("video");
+			container.appendChild(video);
+			video.src = url;
+			video.setAttribute("controls", "");
+		}
 	}
-	//méthode qui prend en paramètre un évenement de type Keyboard event = fermer avec esc clavier
+	/*
+	méthode qui prend en paramètre un évenement de type Keyboard event = 
+	fermer lightbox avec esc clavier
+	touche fleche droite = media suivant
+	touche fleche gauche = media précédent
+	*/
 	onKeyUp(e) {
 		if (e.key === "Escape") {
 			this.close(e); // si la clé pressée est la touche esc -> appel de la méthode close
@@ -289,7 +259,7 @@ class Lightbox {
 	//méthode qui prend en paramètre un évenement de type mouse event
 	close(e) {
 		e.preventDefault();
-		this.element.classList.add("fadeOut");
+		//this.element.classList.add("fadeOut");
 		this.element.parentElement.removeChild(this.element);
 		document.removeEventListener("keyup", this.onKeyUp);
 
@@ -297,59 +267,38 @@ class Lightbox {
 	//méthode qui prend en paramètre un évenement de type mouse event ou keyboard event
 	next(e) {
 		e.preventDefault();
-		// console.log(this.gallery);
-		// console.log(this.galleryVideo);
-		if(this.url.includes("jpg")) {
-			let i = this.gallery.findIndex(image => image === this.url);
-			if(i === this.gallery.length - 1 ) { //si c'est la dernière image
-				i = -1; // on revient à 0
-			}
-			this.loadImage(this.gallery[i + 1]);
-		} else if (this.url.includes("mp4")) {
-			let n = this.galleryVideo.findIndex(video => video === this.url);
-			if(n === this.galleryVideo.length - 1 ) { //si c'est la dernière image
-				n = -1; // on revient à 0
-			}
-			this.loadVideo(this.galleryVideo[n + 1]);
+		let i = this.gallery.findIndex(image => image === this.url);
+		if(i === this.gallery.length - 1 ) { //si c'est la dernière image
+			i = -1; // on revient à 0
 		}
+		this.loadMedia(this.gallery[i + 1]);
 	}
 
 	//méthode qui prend en paramètre un évenement de type mouse event ou keyboard event
 	prev(e) {
 		e.preventDefault();
-		console.log("video",this.galleryVideo);
-		console.log("image", this.gallery);
-		if(this.url.includes("jpg")) {
-			let i = this.gallery.findIndex(image => image === this.url);
-			if(i === 0 ) { // si c'est la première image
-				i = this.gallery.length; // on passe à la dernière image
-			}
-			this.loadImage(this.gallery[i - 1]);
-		} else if (this.url.includes("mp4")) {
-
-			let n = this.galleryVideo.findIndex(video => video === this.url);
-			if(n === 0 ) { // si c'est la première image
-				n = this.galleryVideo.length; // on passe à la dernière image
-			}
-			this.loadVideo(this.galleryVideo[n - 1]);
+		let i = this.gallery.findIndex(image => image === this.url);
+		if(i === 0 ) { // si c'est la première image
+			i = this.gallery.length; // on passe à la dernière image
 		}
+		this.loadMedia(this.gallery[i - 1]);
 	}
 
 	// création des éléments HTML + return 
 	buildDOM (url) {
-		const dom = document.createElement("section");
-		dom.classList.add("lightbox");
-		dom.innerHTML = 
+		const domLightbox = document.createElement("section");
+		domLightbox.classList.add("lightbox");
+		domLightbox.innerHTML = 
 			`<button type="button" class="lightbox-close">Fermer</button>
 			<button type="button" class="lightbox-next">Suivant</button>
 			<button type="button" class="lightbox-prev">Précédent</button>
 			<div class="media-container"></div>
 			`;
 
-		dom.querySelector(".lightbox-close").addEventListener("click", this.close.bind(this));
-		dom.querySelector(".lightbox-next").addEventListener("click", this.next.bind(this));
-		dom.querySelector(".lightbox-prev").addEventListener("click", this.prev.bind(this));
-		return dom;
+		domLightbox.querySelector(".lightbox-close").addEventListener("click", this.close.bind(this));
+		domLightbox.querySelector(".lightbox-next").addEventListener("click", this.next.bind(this));
+		domLightbox.querySelector(".lightbox-prev").addEventListener("click", this.prev.bind(this));
+		return domLightbox;
 	}
 }
 

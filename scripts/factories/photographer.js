@@ -98,7 +98,8 @@ function displayPictureVideoFactory(item){
 		const tagImg = document.createElement("img");
 		tagArticle.prepend(tagImg); //après l'élément
 		tagImg.src = `assets/images/${item.photographerId}/${item.image}`;
-		tagImg.className = "picture";
+		// tagImg.className = "picture";
+		tagImg.className = "media";
 	}
 	/*
 	fonction qui créé une balise img + chemin dans src
@@ -107,7 +108,8 @@ function displayPictureVideoFactory(item){
 		const tagVideo = document.createElement("video");
 		tagArticle.prepend(tagVideo); //après l'élémenet
 		tagVideo.src = `assets/images/${item.photographerId}/${item.video}`;
-		tagVideo.className = "video";
+		//tagVideo.className = "video";
+		tagVideo.className = "media";
 	}
 	return {createVideo, createPicture};
 }

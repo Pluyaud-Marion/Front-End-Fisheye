@@ -120,18 +120,12 @@ form input {
     width: 300px;
     height: 266px;
     margin-bottom: 3%;
-    img{
+
+    .media{
       width: 100%;
       height: 90%;
       object-fit: cover;
       margin-bottom: -5%;
-    }
-    .video{
-      width: 100%;
-      height: 90%;
-      object-fit: cover;
-      margin-bottom: -5%;
-      border: red solid;
     }
     .container-title-like {
       display: flex;
@@ -238,9 +232,9 @@ form input {
       opacity: 1;
     }
   }
-  .lightbox.fadeOut {
-    opacity: 0;
-  }
+  // .lightbox.fadeOut {
+  //   opacity: 0;
+  // }
   .media-container{
     margin-left: 50px;
     margin-right: 50px;
@@ -251,17 +245,16 @@ form input {
     align-items: center;
     justify-content: center;
     min-height: 100vh; //100% de la hauteur de l'écran
-    img{
+    img, video{
       max-width: 100%;
-
       height: 700px;
     }
-    .lightbox-loader{
-      width: 38px;
-      height: 38px;
-      opacity: .5;
-      background: url("../assets/icons/loader.svg") center center no-repeat;
-    }
+    // .lightbox-loader{
+    //   width: 38px;
+    //   height: 38px;
+    //   opacity: .5;
+    //   background: url("../assets/icons/loader.svg") center center no-repeat;
+    // }
   }
 }
 
