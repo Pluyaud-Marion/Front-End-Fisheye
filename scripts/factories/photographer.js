@@ -88,11 +88,13 @@ function displayPictureVideoFactory(item){
 	const tagLikes = document.createElement("span");
 	divContainerLike.appendChild(tagLikes);
 	tagLikes.innerHTML = item.likes;
+	// donne l'id = id à la balise du chiffre des likes
 	tagLikes.id = `${item.id}`;
 	
 	const like = document.createElement("i");
 	divContainerLike.appendChild(like);
 	like.className = "fas fa-heart";
+	// donne l'id = like-id à la balise du coeur
 	like.id = `like-${item.id}`;
 
 	/*

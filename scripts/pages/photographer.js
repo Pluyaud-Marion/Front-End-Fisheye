@@ -7,6 +7,11 @@ const idPhotographer = Number(urlSearchParams.get("id"));
 
 const arrayLikes = [];
 
+/*
+Fetch vers le json pour récupérer les données des photographes
+Met dans photographers les données et les retourne
+???
+*/
 async function getElementsPhotographers(){
 	let photographers = [];
 	
@@ -19,6 +24,11 @@ async function getElementsPhotographers(){
 		photographers: [...photographers]});
 }
 
+/*
+Fetch vers le json pour récupérer les données medias des photographes
+Met dans media les données et les retourne
+???
+*/
 async function getMediaPhotographers(){
 	let media = [];
 	
@@ -26,7 +36,6 @@ async function getMediaPhotographers(){
 		.then(response => response.json())
 		.then(data => {
 			media = data.media;
-			
 		})
 		.catch(error => error);
 
@@ -34,7 +43,16 @@ async function getMediaPhotographers(){
 		media: [...media]});
 }
 
-async function displayDataPhotographers(photographers) {
+
+
+/*
+Affiche les données des photographes
+Paramètre photographers retourné par getElementsPhotographers
+Boucle sur chaque photographe 
+Cible la page du photographe sur laquelle on est grâce aux paramètres de l'url
+Créé les éléments et y met dynamiquement les infos
+*/
+function displayDataPhotographers(photographers) {
 	const photographHeader = document.querySelector(".photograph-header");
 	const containerButtonInfos = document.querySelector(".container-button-infos");
 
@@ -74,7 +92,14 @@ async function displayDataPhotographers(photographers) {
 	}
 }
 
-async function displayMediaPhotographers(media) {
+/*
+Affiche les media des photographes
+Paramètre media retourné par getMediaPhotographers
+Boucle sur chaque media 
+Cible la page du photographe sur laquelle on est grâce aux paramètres de l'url
+Appelle la factory methode -> si image créé balise image - si video créé balise video en appelant chaque fonction de la factory methode
+*/
+function displayMediaPhotographers(media) {
 	for (item of media) {
 		if (idPhotographer === item.photographerId) { // cible le photographe avec l'id dans l'url 
 			
@@ -89,37 +114,46 @@ async function displayMediaPhotographers(media) {
 	}
 }
 
+
+/*
+Gestion des likes - incrémente le nombre 
+id du chiffre des likes = id du media
+id du coeur = like-id du media
+si les 2 chiffres sont identiques -> permet de cibler et d'augmenter le bon chiffre au clic sur le coeur = on incrémente le chiffre
+*/
 function addLike(media){
 	for (item of media) {
 		if (idPhotographer === item.photographerId){ //cible le photographe
 			const tagNumberLike = document.getElementById(`${item.id}`);
-			//console.log(tagNumberLike);
+			//console.log("tagNumberLike", tagNumberLike); // les balises des nombres de likes, avant clic
 			
 			let numberLikes = Number(tagNumberLike.innerHTML); //transforme en number le numbre de likes
-			//console.log("avant", numberLikes);
+			// console.log("numberLikes", numberLikes); // le nombre de likes avant clic
+
 			const idTagNumberLike = tagNumberLike.id;
-			const iconLike = document.getElementById(`like-${item.id}`);
-			const idIconLike = iconLike.id.split("-"); //retourne une tableau autour du - le 2ème élément du tableau est l'id
+			// console.log("idTagNumberLike",idTagNumberLike); // l'id de la balise du nombre de likes
+
+			const iconLike = document.getElementById(`like-${item.id}`); // les balises des coeurs
+			const idIconLike = iconLike.id.split("-"); //retourne une tableau autour du - le 2ème élément du tableau est l'id 
 		
 			iconLike.addEventListener("click", () => {
 				if(idIconLike[1] === idTagNumberLike){
 					tagNumberLike.innerHTML++;
-					// console.log("avant", numberLikes);
-					//console.log("apres", tagNumberLike.innerHTML);
-					//const newLike = tagNumberLike.innerHTML;
-					
-					// console.log(arrayLikes);
 				}
-				
 			});
 			arrayLikes.push(numberLikes);
-			
 		}
 	}
 }
 
 
-function cardLikesAndPrice(photographers) {
+
+/*
+Créé la carte avec total des likes et prix
+Créé les balises et utilise reducer pour calcul du total
+*/
+function cardLikesAndPrice(photographers, media) {
+	const newArrayLikes = [];
 	const tagPriceTotalLike = document.querySelector(".price-total-like");
 	// création span prix
 	const tagPrice = document.createElement("span");
@@ -131,7 +165,7 @@ function cardLikesAndPrice(photographers) {
 	tagContainer.className = "likes";
 
 	// création span total des likes
-	const tagTotalLike = document.createElement("span");
+	let tagTotalLike = document.createElement("span");
 	tagContainer.appendChild(tagTotalLike);
 
 	const like = document.createElement("i");
@@ -145,13 +179,59 @@ function cardLikesAndPrice(photographers) {
 		}
 	}
 
+	for(item of media) {
+		if (idPhotographer === item.photographerId){ //cible le photographe
+			const tagNumberLike = document.getElementById(`${item.id}`);
+			let numberLikes = Number(tagNumberLike.innerHTML);
+			const idTagNumberLike = tagNumberLike.id;
+			const iconLike = document.getElementById(`like-${item.id}`);
+			const idIconLike = iconLike.id.split("-");
+			let iconeClicked = false;
+			
+
+			iconLike.addEventListener("click", () => {
+				
+				if(idIconLike[1] === idTagNumberLike){
+					tagNumberLike.innerHTML++;
+				}
+
+				iconeClicked = true;
+			});
+
+			arrayLikes.push(numberLikes);
+
+			console.log(iconeClicked);
+			if(iconeClicked === false) {
+				console.log("je ne suis pas cliqué");
+				const reducer = (previousValue, currentValue) => previousValue + currentValue;
+				let totalLikes = arrayLikes.reduce(reducer);
+				tagTotalLike.innerHTML = totalLikes;
+
+			} else {
+				const tagNewNumberLikes = document.getElementById(`${item.id}`);
+				console.log(tagNewNumberLikes);
+				let newNumberLikes = Number(tagNewNumberLikes.innerHTML);
+				newArrayLikes.push(newNumberLikes);
+				
+				const reducer = (previousValue, currentValue) => previousValue + currentValue;
+				let totalNewLikes = newArrayLikes.reduce(reducer);
+				tagTotalLike.innerHTML = totalNewLikes;
+			}
+		}
+	}
+	
+
 	// reducer pour additionner tous les likes (dans le tableau)
-	const reducer = (previousValue, currentValue) => previousValue + currentValue;
-	const totalLikes = arrayLikes.reduce(reducer);
-	//console.log(totalLikes);
-	tagTotalLike.innerHTML = totalLikes;
+	// const reducer = (previousValue, currentValue) => previousValue + currentValue;
+	// let totalLikes = arrayLikes.reduce(reducer);
+	// tagTotalLike.innerHTML = totalLikes;
+	//tagTotalLike.innerHTML = newTotal;
 }
 
+
+/*
+Trie les médias par popularité / date / titre
+*/
 function sort(media) {
 	const containerMedia = document.querySelector(".photograph-galery");
 
@@ -209,7 +289,7 @@ class Lightbox {
 		const tagTitle = Array.from(document.querySelectorAll(".title"));
 
 		const listTitle = tagTitle.map(title => title.dataset.title);
-		console.log(listTitle);
+		//console.log(listTitle);
 
 
 		// tagTitle.forEach(title => {
@@ -353,8 +433,8 @@ async function init() {
 	const { media } = await getMediaPhotographers();
 	displayDataPhotographers(photographers);
 	displayMediaPhotographers(media);
-	addLike(media);
-	cardLikesAndPrice(photographers);
+	//addLike(media);
+	cardLikesAndPrice(photographers, media);
 	sort(media);
 	Lightbox.init();//
 

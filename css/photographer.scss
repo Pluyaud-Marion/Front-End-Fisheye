@@ -34,6 +34,7 @@
   right: 283px;
   #error-firstname, #error-lastname, #error-email, #error-message {
     font-style: italic;
+    margin-top: 0;
   }
 }
 
@@ -281,7 +282,91 @@ form input {
       height: 900px;
       object-fit: cover;
     }
-   
   }
 }
 
+@media screen and (min-width : 768px) and (max-width : 1100px ) {
+  #contact_modal {
+    right: 131px;
+  }
+  
+}
+@media screen and (min-width : 768px) and (max-width : 1100px ) {
+  .photo-page-photographe{
+    clip-path: ellipse(47% 42%);
+  }
+
+}
+@media screen and (min-width : 1600px)  {
+  .photograph-header{
+    height: 250px;
+  }
+  .photo-page-photographe{
+    clip-path: ellipse(29% 48%);
+  }
+  .photograph-header .container-button-infos .container-infos h1 {
+    font-size: 50px;
+  }
+  .photograph-header .container-button-infos .container-infos .city-country  {
+    font-size: 40px;
+  }
+  .photograph-header .container-button-infos .container-infos p {
+    font-size: 25px;
+  }
+  .container-button-infos .contact_button {
+    font-size: 25px;
+    height: 80px;
+    width: 200px;
+  }
+  .sort {
+    margin: 50px 100px;
+    .container-sort{
+    .text-sort {
+      font-size: 30px;
+    }
+    #select-sort {
+      padding: 0.5%;
+      width: 10%;
+    }
+  }
+  }
+  .photograph-galery article {
+    width: 30%;
+    height: 400px;
+    .media{
+      height: 300px;
+      margin-bottom: 0;
+    }
+    .container-title-like {
+      font-size: 30px;
+    }
+  }
+  .price-total-like {
+    width: 20%;
+    height: 100px;
+    font-size: 30px;
+  }
+  
+  #contact_modal {
+    right: 900px;
+    top: 400px
+  }
+  .modal{
+    width: 100%;
+    header h2 {
+      margin-top: 12%;
+      font-size: 50px;
+    }
+    header img {
+      right: 0;
+    }
+  }
+  form label {
+    margin-top: 5%;
+    font-size: 25px;
+  }
+  form input {
+    height: 60px;
+  }
+
+}
