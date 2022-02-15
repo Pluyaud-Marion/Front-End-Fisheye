@@ -8,6 +8,7 @@ const errorFirstname = document.getElementById("error-firstname");
 const errorLastname = document.getElementById("error-lastname");
 const errorEmail = document.getElementById("error-email");
 const errorMessage = document.getElementById("error-message");
+const title = document.querySelector(".h2");
 const regexName = /^[a-zA-ZÀ-ÿ\s_-]{2,60}$/;
 
 function main() {
@@ -26,7 +27,7 @@ function displayModal() {
 	headerGlobalTag.style.backgroundColor = "rgba(196, 196, 196, 0.4)";
 	photographHeader.style.backgroundColor = "rgba(196, 196, 196, 0)";
 
-	const title = document.querySelector(".h2");
+	
 	const tagNamePhotographer = document.createElement("span");
 	title.appendChild(tagNamePhotographer);
 
@@ -40,6 +41,8 @@ Vide le formulaire (erreurs + value des inputs)
 Appelée au click sur la croix pour fermer + à la soumission du formulaire
 */
 function clearForm() {
+
+	
 	let firstname = document.getElementById("firstname");
 	let lastname = document.getElementById("lastname");
 	let email = document.getElementById("email");
@@ -66,7 +69,8 @@ function closeModal() {
 	photographHeader.style.backgroundColor = "#FAFAFA";
 	mainTag.style.backgroundColor = "#FFFFFF";
 	headerGlobalTag.style.backgroundColor = "#FFFFFF";
-	localStorage.clear();
+	//localStorage.clear();
+	title.removeChild(title.lastChild);
 	clearForm();
 }
 
@@ -81,7 +85,8 @@ function submitForm() {
 	photographHeader.style.backgroundColor = "#FAFAFA";
 	mainTag.style.backgroundColor = "#FFFFFF";
 	headerGlobalTag.style.backgroundColor = "#FFFFFF";
-	localStorage.clear();
+	//localStorage.clear();
+	title.removeChild(title.lastChild);
 	clearForm();
 }
 

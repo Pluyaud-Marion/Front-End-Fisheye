@@ -275,17 +275,37 @@ form input {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     min-height: 100vh; //100% de la hauteur de l'écran
     img, video{
       max-width: 100%;
       width: 1050px;
       height: 900px;
-      object-fit: cover;
+      object-fit: contain;
+    }
+    p {
+      text-align: initial;
+      color: $primary-color;
+      font-weight: 400;
+      font-size: 20px;
     }
   }
 }
 
-@media screen and (min-width : 768px) and (max-width : 1100px ) {
+@media screen and (min-width : 425px) and (max-width: 767px){
+  .photographer_section {
+    display: flex;
+  }
+  .photograph-header{
+    margin : 0 50px
+  }
+  .photograph-galery {
+    margin: 50px 50px;
+    article {
+      width: 30%;
+      border: red solid;
+    }
+  }
   #contact_modal {
     right: 131px;
   }
@@ -298,6 +318,15 @@ form input {
 
 }
 @media screen and (min-width : 1600px)  {
+  .lightbox .lightbox-close {
+    text-indent: 10000px;
+  }
+  .lightbox .lightbox-prev {
+    text-indent: 10000px;
+  }
+  .lightbox .lightbox-next {
+    text-indent: 10000px;
+  }
   .photograph-header{
     height: 250px;
   }

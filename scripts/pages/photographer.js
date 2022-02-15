@@ -153,7 +153,7 @@ Créé la carte avec total des likes et prix
 Créé les balises et utilise reducer pour calcul du total
 */
 function cardLikesAndPrice(photographers, media) {
-	const newArrayLikes = [];
+
 	const tagPriceTotalLike = document.querySelector(".price-total-like");
 	// création span prix
 	const tagPrice = document.createElement("span");
@@ -186,46 +186,27 @@ function cardLikesAndPrice(photographers, media) {
 			const idTagNumberLike = tagNumberLike.id;
 			const iconLike = document.getElementById(`like-${item.id}`);
 			const idIconLike = iconLike.id.split("-");
-			let iconeClicked = false;
-			
 
+			
 			iconLike.addEventListener("click", () => {
-				
 				if(idIconLike[1] === idTagNumberLike){
 					tagNumberLike.innerHTML++;
+					totalLikes++;
+					//si nouveau clic = mise à jour
+					tagTotalLike.innerHTML = Number(totalLikes);
+					
 				}
-
-				iconeClicked = true;
 			});
-
 			arrayLikes.push(numberLikes);
-
-			console.log(iconeClicked);
-			if(iconeClicked === false) {
-				console.log("je ne suis pas cliqué");
-				const reducer = (previousValue, currentValue) => previousValue + currentValue;
-				let totalLikes = arrayLikes.reduce(reducer);
-				tagTotalLike.innerHTML = totalLikes;
-
-			} else {
-				const tagNewNumberLikes = document.getElementById(`${item.id}`);
-				console.log(tagNewNumberLikes);
-				let newNumberLikes = Number(tagNewNumberLikes.innerHTML);
-				newArrayLikes.push(newNumberLikes);
-				
-				const reducer = (previousValue, currentValue) => previousValue + currentValue;
-				let totalNewLikes = newArrayLikes.reduce(reducer);
-				tagTotalLike.innerHTML = totalNewLikes;
-			}
+		
+			
 		}
 	}
-	
+	//valeur initiale = avant clic sur like
+	const reducer = (previousValue, currentValue) => previousValue + currentValue;
+	let totalLikes = arrayLikes.reduce(reducer);
+	tagTotalLike.innerHTML = Number(totalLikes);
 
-	// reducer pour additionner tous les likes (dans le tableau)
-	// const reducer = (previousValue, currentValue) => previousValue + currentValue;
-	// let totalLikes = arrayLikes.reduce(reducer);
-	// tagTotalLike.innerHTML = totalLikes;
-	//tagTotalLike.innerHTML = newTotal;
 }
 
 
@@ -286,10 +267,8 @@ class Lightbox {
 		// créé un tableau avec tous les alt
 		const altAttribut = links.map(link => link.getAttribute("alt"));
 
-		const tagTitle = Array.from(document.querySelectorAll(".title"));
-
-		const listTitle = tagTitle.map(title => title.dataset.title);
-		//console.log(listTitle);
+		const listTitle = links.map(link => link.dataset.title);
+		console.log(listTitle);
 
 
 		// tagTitle.forEach(title => {
@@ -305,22 +284,23 @@ class Lightbox {
 				const altCurrent = e.currentTarget.getAttribute("alt"); //récupère le alt de l'image cliquée
 				const titleCurrent = e.currentTarget.dataset.title;
 				console.log(titleCurrent);
-				new Lightbox(e.currentTarget.getAttribute("src"), gallery, altAttribut, altCurrent); //récupère l'url de l'image cliquée
+				new Lightbox(e.currentTarget.getAttribute("src"), gallery, altAttribut, altCurrent,  listTitle, titleCurrent); //récupère l'url de l'image cliquée
 				
 			});	
 		});
 	}
 
-	constructor (url, gallery, altAttribut, altCurrent) {
+	constructor (url, gallery, altAttribut, altCurrent, listTitle, titleCurrent) {
 		this.element = this.buildDOM(url); // construction du DOM à partir de l'url
 		this.gallery = gallery;		
 		this.altCurrent = altCurrent; //alt de l'image cliquée
 		this.altAttribut = altAttribut; //tous les alts
-	
-
+		this.titleCurrent = titleCurrent;
+		this.listTitle = listTitle;
+		
 		document.body.appendChild(this.element); // insertion dans le body des éléments
 
-		this.loadMedia(url, altCurrent);
+		this.loadMedia(url, altCurrent, titleCurrent);
 		this.onKeyUp = this.onKeyUp.bind(this);
 		document.addEventListener("keyup", this.onKeyUp); // écoute le keyup
 	}
@@ -329,27 +309,37 @@ class Lightbox {
 	Créé la balise qui contient les éléments de la ligthbox
 	Permet de charger à l'intérieur les médias, différencie si image ou vidéo et créé les balises adaptées et met dans la balise l'attribut src qui correspond à l'image sur laquelle on a cliqué
 	*/
-	loadMedia(url, altCurrent) {
+	loadMedia(url, altCurrent, titleCurrent) {
 
 		this.url = null;	
 		const container = this.element.querySelector(".media-container");
 		container.innerHTML = "";	
 		this.url = url; //pour cibler l'image
 		this.altCurrent = altCurrent; // pour cibler le alt
+		this.titleCurrent = titleCurrent;
 	
 		if (this.url.includes("jpg")) {
 			const image = new Image(); 
+			let title = document.createElement("p");
 			container.appendChild(image);
+			container.appendChild(title);
+			
+			title.innerHTML = titleCurrent;
 			image.src = url;
 			image.alt = altCurrent; //rajoute le alt ciblé
+			
 		}
 	
 		if (this.url.includes("mp4")) {
 			const video = document.createElement("video");
+			let title = document.createElement("p");
 			container.appendChild(video);
+			container.appendChild(title);
+			title.innerHTML = titleCurrent;
 			video.src = url;
 			video.setAttribute("alt", altCurrent);
 			video.setAttribute("controls", "");
+			title.innerHTML = titleCurrent;
 		}
 	}
 	/*
@@ -381,6 +371,8 @@ class Lightbox {
 		e.preventDefault();
 		let i = this.gallery.findIndex(image => image === this.url); //pour cibler l'url de l'image
 		let n = this.altAttribut.findIndex(alt => alt === this.altCurrent); //pour cibler le alt
+		let x = this.listTitle.findIndex(title => title === this.titleCurrent);
+
 		if(i === this.gallery.length - 1 ) { //si c'est la dernière image
 			i = -1; // on revient à 0
 		}
@@ -389,7 +381,11 @@ class Lightbox {
 			n = -1;
 		}
 
-		this.loadMedia(this.gallery[i + 1], this.altAttribut[n + 1]);
+		if(x === this.titleCurrent.length - 1) {
+			x = -1;
+		}
+
+		this.loadMedia(this.gallery[i + 1], this.altAttribut[n + 1], this.listTitle[x + 1]);
 	}
 
 	//méthode qui prend en paramètre un évenement de type mouse event ou keyboard event
@@ -397,6 +393,8 @@ class Lightbox {
 		e.preventDefault();
 		let i = this.gallery.findIndex(image => image === this.url);
 		let n = this.altAttribut.findIndex(alt => alt === this.altCurrent);
+		let x = this.listTitle.findIndex(title => title === this.titleCurrent);
+
 		if(i === 0 ) { // si c'est la première image
 			i = this.gallery.length; // on passe à la dernière image
 		}
@@ -405,7 +403,11 @@ class Lightbox {
 			n = this.altCurrent.length;
 		}
 
-		this.loadMedia(this.gallery[i - 1], this.altAttribut[n - 1]);
+		if(x === 0){
+			x = this.titleCurrent.length;
+		}
+
+		this.loadMedia(this.gallery[i - 1], this.altAttribut[n - 1], this.listTitle[n - 1]);
 	}
 
 	// création des éléments HTML + return 
@@ -417,7 +419,6 @@ class Lightbox {
 			<button type="button" class="lightbox-next">Suivant</button>
 			<button type="button" class="lightbox-prev">Précédent</button>
 			<div class="media-container"></div>
-			<p class="title-box"></p>
 			`;
 
 		domLightbox.querySelector(".lightbox-close").addEventListener("click", this.close.bind(this));

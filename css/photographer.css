@@ -365,6 +365,10 @@ form input {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   min-height: 100vh;
 }
 
@@ -372,11 +376,33 @@ form input {
   max-width: 100%;
   width: 1050px;
   height: 900px;
-  -o-object-fit: cover;
-     object-fit: cover;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1100px) {
+.lightbox .media-container p {
+  text-align: initial;
+  color: #901C1C;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+@media screen and (min-width: 425px) and (max-width: 767px) {
+  .photographer_section {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .photograph-header {
+    margin: 0 50px;
+  }
+  .photograph-galery {
+    margin: 50px 50px;
+  }
+  .photograph-galery article {
+    width: 30%;
+    border: red solid;
+  }
   #contact_modal {
     right: 131px;
   }
@@ -390,6 +416,15 @@ form input {
 }
 
 @media screen and (min-width: 1600px) {
+  .lightbox .lightbox-close {
+    text-indent: 10000px;
+  }
+  .lightbox .lightbox-prev {
+    text-indent: 10000px;
+  }
+  .lightbox .lightbox-next {
+    text-indent: 10000px;
+  }
   .photograph-header {
     height: 250px;
   }

@@ -77,7 +77,7 @@ function displayPictureVideoFactory(item){
 	tagTitle.className = "title";
 	//tagTitle.id = `${item.title}-${item.id}`;
 	//tagTitle.setAttribute("title", item.title);
-	tagTitle.dataset.title = item.title;
+	
 	tagTitle.innerHTML = item.title;
 	
 
@@ -106,6 +106,7 @@ function displayPictureVideoFactory(item){
 		tagImg.src = `assets/images/${item.photographerId}/${item.image}`;
 		tagImg.className = "media";
 		tagImg.alt = item.alt;
+		tagImg.dataset.title = item.title;
 	}
 	/*
 	fonction qui créé une balise img + chemin dans src
@@ -116,6 +117,7 @@ function displayPictureVideoFactory(item){
 		tagVideo.src = `assets/images/${item.photographerId}/${item.video}`;
 		tagVideo.className = "media";
 		tagVideo.setAttribute("alt", item.alt);
+		tagVideo.dataset.title = item.title;
 
 	}
 	return {createVideo, createPicture};
