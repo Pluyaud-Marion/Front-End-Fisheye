@@ -14,7 +14,7 @@ async function getElementsPhotographers(){
 		.then(response => response.json())
 		.then(data => photographers = data.photographers)
 		.catch(error => error);
-
+	
 	return ({
 		photographers: [...photographers]});
 }
@@ -26,7 +26,7 @@ async function getMediaPhotographers(){
 		.then(response => response.json())
 		.then(data => {
 			media = data.media;
-			//console.log(media);
+			
 		})
 		.catch(error => error);
 
@@ -66,6 +66,10 @@ async function displayDataPhotographers(photographers) {
 			photographHeader.appendChild(tagImg);
 			tagImg.src = `assets/photographers/${photographer.portrait}`; //chemin pour la photo du portrait + le nom de la photo récupéré du fetch
 			tagImg.className = "photo-page-photographe"; //ajout de la classe pour le style
+
+			//insertion du nom du photographe dans LS pour récupération pour formulaire
+			const namePhotographer = photographer.name;
+			localStorage.setItem("name", namePhotographer);
 		}
 	}
 }
