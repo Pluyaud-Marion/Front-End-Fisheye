@@ -75,7 +75,11 @@ function displayPictureVideoFactory(item){
 	const tagTitle = document.createElement("p");
 	divContainerTitleLike.appendChild(tagTitle);
 	tagTitle.className = "title";
+	//tagTitle.id = `${item.title}-${item.id}`;
+	//tagTitle.setAttribute("title", item.title);
+	tagTitle.dataset.title = item.title;
 	tagTitle.innerHTML = item.title;
+	
 
 	const divContainerLike = document.createElement("div");
 	divContainerTitleLike.appendChild(divContainerLike);
@@ -98,8 +102,8 @@ function displayPictureVideoFactory(item){
 		const tagImg = document.createElement("img");
 		tagArticle.prepend(tagImg); //après l'élément
 		tagImg.src = `assets/images/${item.photographerId}/${item.image}`;
-		// tagImg.className = "picture";
 		tagImg.className = "media";
+		tagImg.alt = item.alt;
 	}
 	/*
 	fonction qui créé une balise img + chemin dans src
@@ -108,8 +112,9 @@ function displayPictureVideoFactory(item){
 		const tagVideo = document.createElement("video");
 		tagArticle.prepend(tagVideo); //après l'élémenet
 		tagVideo.src = `assets/images/${item.photographerId}/${item.video}`;
-		//tagVideo.className = "video";
 		tagVideo.className = "media";
+		tagVideo.setAttribute("alt", item.alt);
+
 	}
 	return {createVideo, createPicture};
 }

@@ -192,27 +192,51 @@ function sort(media) {
 
 class Lightbox {
 	
+	//altAttribut = tous les alts
+	//altCurrent = alt de l'image cliquée
 	static init() {
 		// transforme objet en tableau et y met toutes les balises médias de la page(vidéos + photos)
 		const links = Array.from(document.querySelectorAll(".media"));
 		// créé un nouveau tableau et y met tous les liens vers les médias (récupère l'attribut src)
 		const gallery = links.map(link => link.getAttribute("src"));
+		// créé un tableau avec tous les alt
+		const altAttribut = links.map(link => link.getAttribute("alt"));
+
+		const tagTitle = Array.from(document.querySelectorAll(".title"));
+
+		const listTitle = tagTitle.map(title => title.dataset.title);
+		console.log(listTitle);
+
+
+		// tagTitle.forEach(title => {
+		// 	const listTitle = title.dataset.title;
+		// 	console.log(listTitle);
+		// });
+		
 
 		//pour chaque balise média on créé une instance de Lightbox
 		links.forEach(link => {
 			link.addEventListener("click", e =>{
 				e.preventDefault();
-				new Lightbox(e.currentTarget.getAttribute("src"), gallery); //récupère l'url de l'image cliquée
+				const altCurrent = e.currentTarget.getAttribute("alt"); //récupère le alt de l'image cliquée
+				const titleCurrent = e.currentTarget.dataset.title;
+				console.log(titleCurrent);
+				new Lightbox(e.currentTarget.getAttribute("src"), gallery, altAttribut, altCurrent); //récupère l'url de l'image cliquée
+				
 			});	
 		});
 	}
 
-	constructor (url, gallery) {
+	constructor (url, gallery, altAttribut, altCurrent) {
 		this.element = this.buildDOM(url); // construction du DOM à partir de l'url
 		this.gallery = gallery;		
+		this.altCurrent = altCurrent; //alt de l'image cliquée
+		this.altAttribut = altAttribut; //tous les alts
+	
+
 		document.body.appendChild(this.element); // insertion dans le body des éléments
 
-		this.loadMedia(url);
+		this.loadMedia(url, altCurrent);
 		this.onKeyUp = this.onKeyUp.bind(this);
 		document.addEventListener("keyup", this.onKeyUp); // écoute le keyup
 	}
@@ -221,22 +245,26 @@ class Lightbox {
 	Créé la balise qui contient les éléments de la ligthbox
 	Permet de charger à l'intérieur les médias, différencie si image ou vidéo et créé les balises adaptées et met dans la balise l'attribut src qui correspond à l'image sur laquelle on a cliqué
 	*/
-	loadMedia(url) {
+	loadMedia(url, altCurrent) {
+
 		this.url = null;	
 		const container = this.element.querySelector(".media-container");
 		container.innerHTML = "";	
 		this.url = url; //pour cibler l'image
+		this.altCurrent = altCurrent; // pour cibler le alt
 	
 		if (this.url.includes("jpg")) {
 			const image = new Image(); 
 			container.appendChild(image);
 			image.src = url;
+			image.alt = altCurrent; //rajoute le alt ciblé
 		}
 	
 		if (this.url.includes("mp4")) {
 			const video = document.createElement("video");
 			container.appendChild(video);
 			video.src = url;
+			video.setAttribute("alt", altCurrent);
 			video.setAttribute("controls", "");
 		}
 	}
@@ -267,21 +295,33 @@ class Lightbox {
 	//méthode qui prend en paramètre un évenement de type mouse event ou keyboard event
 	next(e) {
 		e.preventDefault();
-		let i = this.gallery.findIndex(image => image === this.url);
+		let i = this.gallery.findIndex(image => image === this.url); //pour cibler l'url de l'image
+		let n = this.altAttribut.findIndex(alt => alt === this.altCurrent); //pour cibler le alt
 		if(i === this.gallery.length - 1 ) { //si c'est la dernière image
 			i = -1; // on revient à 0
 		}
-		this.loadMedia(this.gallery[i + 1]);
+
+		if(n === this.altCurrent.length - 1){ //si dernier alt
+			n = -1;
+		}
+
+		this.loadMedia(this.gallery[i + 1], this.altAttribut[n + 1]);
 	}
 
 	//méthode qui prend en paramètre un évenement de type mouse event ou keyboard event
 	prev(e) {
 		e.preventDefault();
 		let i = this.gallery.findIndex(image => image === this.url);
+		let n = this.altAttribut.findIndex(alt => alt === this.altCurrent);
 		if(i === 0 ) { // si c'est la première image
 			i = this.gallery.length; // on passe à la dernière image
 		}
-		this.loadMedia(this.gallery[i - 1]);
+
+		if(n === 0) {
+			n = this.altCurrent.length;
+		}
+
+		this.loadMedia(this.gallery[i - 1], this.altAttribut[n - 1]);
 	}
 
 	// création des éléments HTML + return 
@@ -293,6 +333,7 @@ class Lightbox {
 			<button type="button" class="lightbox-next">Suivant</button>
 			<button type="button" class="lightbox-prev">Précédent</button>
 			<div class="media-container"></div>
+			<p class="title-box"></p>
 			`;
 
 		domLightbox.querySelector(".lightbox-close").addEventListener("click", this.close.bind(this));
