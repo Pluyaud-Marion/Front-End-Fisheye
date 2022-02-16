@@ -27,14 +27,16 @@ function photographerFactory(data) {
 		//création des balises à mettre dans balise section
 		const img = document.createElement( "img" );
 		img.setAttribute("src", picture);
+		img.setAttribute("alt", name );
+
 		const h2 = document.createElement( "h2" );
 		h2.textContent = name;
 
 		const tagCityCountry = document.createElement( "span" );
 		tagCityCountry.innerHTML = city + ", "  + country;
 
-		const tagPrice = document.createElement( "span");
-		tagPrice.innerHTML = price + "€/jour";
+		const tagPriceDay = document.createElement( "span");
+		tagPriceDay.innerHTML = price + "€/jour";
 		const pTagline = document.createElement( "p" );
 		pTagline.innerHTML =  tagline;
 		
@@ -43,7 +45,7 @@ function photographerFactory(data) {
 		tagArticle.appendChild(h2);
 		tagArticle.appendChild(tagCityCountry);
 		tagArticle.appendChild(pTagline);
-		tagArticle.appendChild(tagPrice);
+		tagArticle.appendChild(tagPriceDay);
 
 		// au click sur l'article appel de la fonction qui affiche un photographe -> insertion de l'id dans l'url
 		tagArticle.addEventListener("click", getOnePhotographer());
@@ -75,8 +77,6 @@ function displayPictureVideoFactory(item){
 	const tagTitle = document.createElement("p");
 	divContainerTitleLike.appendChild(tagTitle);
 	tagTitle.className = "title";
-	//tagTitle.id = `${item.title}-${item.id}`;
-	//tagTitle.setAttribute("title", item.title);
 	
 	tagTitle.innerHTML = item.title;
 	
@@ -94,8 +94,10 @@ function displayPictureVideoFactory(item){
 	const like = document.createElement("i");
 	divContainerLike.appendChild(like);
 	like.className = "fas fa-heart";
+	like.setAttribute("aria-label", "likes");
 	// donne l'id = like-id à la balise du coeur
 	like.id = `like-${item.id}`;
+
 
 	/*
 	fonction qui créé une balise img + chemin dans src

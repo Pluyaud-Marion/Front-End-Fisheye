@@ -22,7 +22,7 @@ Créé un span dans le h2 + y met le nom du photographe récupéré du LS
 */
 function displayModal() {
 	modal.style.display = "block";
-
+	
 	mainTag.style.backgroundColor = "rgba(196, 196, 196, 0.4)";
 	headerGlobalTag.style.backgroundColor = "rgba(196, 196, 196, 0.4)";
 	photographHeader.style.backgroundColor = "rgba(196, 196, 196, 0)";
@@ -34,6 +34,7 @@ function displayModal() {
 	//récupération du nom du photographe dans LS
 	const namePhotographer = localStorage.getItem("name");
 	tagNamePhotographer.innerHTML = namePhotographer;
+	modal.setAttribute("aria-labelledby2", "Contact me " + namePhotographer);
 }
 
 /*

@@ -84,6 +84,7 @@ function displayDataPhotographers(photographers) {
 			photographHeader.appendChild(tagImg);
 			tagImg.src = `assets/photographers/${photographer.portrait}`; //chemin pour la photo du portrait + le nom de la photo récupéré du fetch
 			tagImg.className = "photo-page-photographe"; //ajout de la classe pour le style
+			tagImg.setAttribute("alt", photographer.name);
 
 			//insertion du nom du photographe dans LS pour récupération pour formulaire
 			const namePhotographer = photographer.name;
@@ -268,7 +269,6 @@ class Lightbox {
 		const altAttribut = links.map(link => link.getAttribute("alt"));
 
 		const listTitle = links.map(link => link.dataset.title);
-		console.log(listTitle);
 
 
 		// tagTitle.forEach(title => {
@@ -283,7 +283,7 @@ class Lightbox {
 				e.preventDefault();
 				const altCurrent = e.currentTarget.getAttribute("alt"); //récupère le alt de l'image cliquée
 				const titleCurrent = e.currentTarget.dataset.title;
-				console.log(titleCurrent);
+				//console.log(titleCurrent);
 				new Lightbox(e.currentTarget.getAttribute("src"), gallery, altAttribut, altCurrent,  listTitle, titleCurrent); //récupère l'url de l'image cliquée
 				
 			});	
@@ -317,6 +317,7 @@ class Lightbox {
 		this.url = url; //pour cibler l'image
 		this.altCurrent = altCurrent; // pour cibler le alt
 		this.titleCurrent = titleCurrent;
+		//console.log(titleCurrent);
 	
 		if (this.url.includes("jpg")) {
 			const image = new Image(); 
@@ -377,11 +378,11 @@ class Lightbox {
 			i = -1; // on revient à 0
 		}
 
-		if(n === this.altCurrent.length - 1){ //si dernier alt
+		if(n === this.altAttribut.length - 1){ //si dernier alt
 			n = -1;
 		}
 
-		if(x === this.titleCurrent.length - 1) {
+		if(x === this.listTitle.length - 1) {
 			x = -1;
 		}
 
@@ -400,24 +401,25 @@ class Lightbox {
 		}
 
 		if(n === 0) {
-			n = this.altCurrent.length;
+			n = this.altAttribut.length;
 		}
 
 		if(x === 0){
-			x = this.titleCurrent.length;
+			x = this.listTitle.length;
 		}
 
-		this.loadMedia(this.gallery[i - 1], this.altAttribut[n - 1], this.listTitle[n - 1]);
+		this.loadMedia(this.gallery[i - 1], this.altAttribut[n - 1], this.listTitle[x - 1]);
 	}
 
 	// création des éléments HTML + return 
 	buildDOM (url) {
 		const domLightbox = document.createElement("section");
 		domLightbox.classList.add("lightbox");
+		domLightbox.setAttribute("aria-label", "image closeup view");
 		domLightbox.innerHTML = 
-			`<button type="button" class="lightbox-close">Fermer</button>
-			<button type="button" class="lightbox-next">Suivant</button>
-			<button type="button" class="lightbox-prev">Précédent</button>
+			`<button type="button" aria-label="Close dialog" class="lightbox-close">Fermer</button>
+			<button type="button" aria-label="Next image" class="lightbox-next">Suivant</button>
+			<button type="button" aria-label="Previous image" class="lightbox-prev">Précédent</button>
 			<div class="media-container"></div>
 			`;
 

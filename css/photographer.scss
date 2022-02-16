@@ -1,12 +1,13 @@
 @import"./mixin-variables";
 
+
 #contact_modal {
   display: none;
 }
 
 .photograph-header {
   background-color: #FAFAFA;
-  margin: 0 100px;
+  margin: 0 5%;
 }
 
 .container-button-infos{
@@ -28,7 +29,6 @@
   }
 }
 #contact_modal {
-  //display: block;
   position: fixed;
   top: 114px;
   right: 283px;
@@ -62,6 +62,7 @@
   top: 30px;
   width: 31px;
 }
+
 
 .modal header h2 {
   font-size: 40px;
@@ -151,7 +152,7 @@ form input {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 50px 100px;
+  margin: 2% 5%;
   article{
     width: 30%;
     height: 266px;
@@ -201,7 +202,7 @@ form input {
 }
 
 .sort{
-  margin: 10px 100px;
+  margin: 2% 5%;
   .container-sort{
     .text-sort {
       font-weight: 700;
@@ -241,7 +242,7 @@ form input {
     right: 0;
     margin-top: -14px;
     z-index: 11;
-    text-indent: -3000px;
+    text-indent: -5000px;
     cursor: pointer;
   }
   .lightbox-prev {
@@ -259,28 +260,26 @@ form input {
     position: fixed;
     top: 26px;
     right: 7px;
-    text-indent: -3000px;
+    text-indent: -5000px;
     cursor: pointer;
 
     z-index: 12;
   }
  
   .media-container{
-    margin-left: 50px;
-    margin-right: 50px;
- 
+    margin-left: 10%;
+    margin-right: 9%;
     /*
     pour centrer une image petite
     */
     display: flex;
-    align-items: center;
     justify-content: center;
     flex-direction: column;
     min-height: 100vh; //100% de la hauteur de l'écran
     img, video{
       max-width: 100%;
       width: 1050px;
-      height: 900px;
+      height: 700px;
       object-fit: contain;
     }
     p {
@@ -294,17 +293,14 @@ form input {
 
 //version tablette - entre 425 et 770px
 @media screen and (min-width:425px) and (max-width:770px){
-  .logo{
-    margin: 2% 5%;
-    margin-left: 0%;
-  }
   .photograph-header{
-    margin : 2% 5%;
+    margin : 0% 5%;
     height: 130px;
     .container-button-infos {
+      margin-left: 0%;
       .contact_button{
-        width: 35%;
-        font-size: 15px;
+        width: 25%;
+        font-size: 10px;
         height: 35px;
       }
       .container-infos{
@@ -322,36 +318,45 @@ form input {
     }
   }
   .sort {
-    margin: 0 5%;
+    margin: 3% 5%;
   }
   .photograph-galery {
     margin: 3% 5%;
     article {
       width: 30%;
+      height: 215px;
       .media{
-        height: 80%;
+        height: 70%;
       }
       .container-title-like{
+        p{
+          font-size: 13px;
+        }
         .container-like{
-          width: 22%;
+          width: 30%;
           span{
             margin-right: 5%;
+            font-size: 13px;
           }
         }
       }
     }
   }
   .price-total-like{
-    width: 25%;
+    width: 35%;
   }
   #contact_modal {
-    right: 131px;
+    right: 18px;
     .modal{
       height: 100%;
       header{
         h2{
-          font-size: 30px;
+          font-size: 25px;
           padding-bottom: 0;
+        }
+        img{
+          width : 20px;
+          right: 100px;
         }
         margin-bottom: 5%;
       }
@@ -363,6 +368,9 @@ form input {
       }
     }
   }
+  .photo-page-photographe {
+    clip-path: ellipse(47% 35%);
+  }
   .lightbox{
     .lightbox-next, .lightbox-prev{
       background: url(../assets/icons/arrow.svg) center center/28px 37px no-repeat;
@@ -370,6 +378,8 @@ form input {
       height: 103%;
     }
     .media-container{
+      margin-left: 8%;
+      margin-right: 8%;
       img, video{
         height: 700px;
       }
@@ -379,7 +389,7 @@ form input {
 }
 @media screen and (min-width:771px) and (max-width:1200px) {
   .photograph-header{
-    margin: 0 5%;
+    // margin: 0 5%;
     justify-content: space-around;
     .container-button-infos{
       width: 70%;
@@ -398,10 +408,10 @@ form input {
   }
   .sort{
     width: 90%;
-    margin: 2% 5%;
+    // margin: 2% 5%;
   }
   .photograph-galery{
-    margin: 0 5%;
+    // margin: 0 5%;
     article{
       width: 30%;
       .media{
@@ -436,9 +446,88 @@ form input {
   }
 }
 
+// Breakpoints pour réglage media lightbox
 @media screen and (min-width:1016px) and (max-width:1210px) {
   .photo-page-photographe{
     clip-path: ellipse(41% 45%);
+  }
+  #contact_modal {
+    right: 200px;
+    top: 100px
+  }
+}
+
+@media screen and (min-width:1330px) and (max-width:1400px) {
+  .lightbox .media-container{
+    margin-left: 11%;
+    margin-right: 10%;
+  }
+}
+@media screen and (min-width:1401px) and (max-width:1500px) {
+  .lightbox .media-container{
+    margin-left: 14%;
+  }
+}
+
+@media screen and (min-width:1501px) and (max-width:1599px) {
+  .lightbox .media-container{
+    margin-left: 16%;
+  }
+}
+@media screen and (min-width:1600px) and (max-width:1750px) {
+  .lightbox .media-container{
+    margin-left: 18%;
+  }
+  #contact_modal {
+    right: 400px;
+    top: 400px
+  }
+}
+
+@media screen and (min-width:1751px) and (max-width:1900px) {
+  .lightbox .media-container{
+    margin-left: 21%;
+  }
+  #contact_modal {
+    right: 500px;
+    top: 400px
+  }
+}
+@media screen and (min-width:1901px) and (max-width:2200px) {
+  .photo-page-photographe {
+    clip-path: ellipse(34% 48%);
+  }
+  .lightbox .media-container{
+    margin-left: 25%;
+  }
+  #contact_modal {
+    right: 650px;
+    top: 400px
+  }
+}
+@media screen and (min-width:2201px) and (max-width:2500px) {
+  .lightbox .media-container{
+    margin-left: 29%;
+  }
+  #contact_modal {
+    right: 900px;
+    top: 400px
+  }
+  .photo-page-photographe {
+    clip-path: ellipse(29% 47%);
+  }
+}
+
+@media screen and (min-width:2500px) {
+  .lightbox .media-container{
+    margin-left: 31%;
+  }
+  #contact_modal {
+    right: 900px;
+    top: 400px
+  }
+  .photo-page-photographe {
+    clip-path: ellipse(26% 47%);
   }
 }
 
@@ -452,12 +541,17 @@ form input {
   .lightbox .lightbox-next {
     text-indent: 10000px;
   }
+  .lightbox .media-container{
+    p{
+      font-size: 30px;
+    }
+  }
   .photograph-header{
     height: 250px;
   }
-  .photo-page-photographe{
-    clip-path: ellipse(29% 48%);
-  }
+  // .photo-page-photographe{
+  //   clip-path: ellipse(41% 48%);
+  // }
   .photograph-header .container-button-infos .container-infos h1 {
     font-size: 50px;
   }
@@ -473,7 +567,7 @@ form input {
     width: 200px;
   }
   .sort {
-    margin: 50px 100px;
+    // margin: 50px 100px;
     .container-sort{
     .text-sort {
       font-size: 30px;
@@ -501,10 +595,6 @@ form input {
     font-size: 30px;
   }
   
-  #contact_modal {
-    right: 900px;
-    top: 400px
-  }
   .modal{
     width: 100%;
     header h2 {
