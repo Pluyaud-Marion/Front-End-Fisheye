@@ -62,21 +62,21 @@ function clearForm() {
 /*
 Ferme la modale, appelée au click sur la croix (html)
 Retire l'affichage de la modale + passe les backgrounds en blanc
-Vide le LS
+retire la balise dernier enfant du titre
 */
 function closeModal() {
 	modal.style.display = "none";
 	photographHeader.style.backgroundColor = "#FAFAFA";
 	mainTag.style.backgroundColor = "#FFFFFF";
 	headerGlobalTag.style.backgroundColor = "#FFFFFF";
-	//localStorage.clear();
+
 	title.removeChild(title.lastChild);
 	clearForm();
 }
 
 /*
 Retire l'affichage de la modale + passe les backgrounds en blanc
-Vide le LS
+Retire la balise dernier enfant du titre
 ///////////////////////////
 par la suite fera la requête post pour la soumission du formulaire
 */
@@ -85,7 +85,7 @@ function submitForm() {
 	photographHeader.style.backgroundColor = "#FAFAFA";
 	mainTag.style.backgroundColor = "#FFFFFF";
 	headerGlobalTag.style.backgroundColor = "#FFFFFF";
-	//localStorage.clear();
+
 	title.removeChild(title.lastChild);
 	clearForm();
 }

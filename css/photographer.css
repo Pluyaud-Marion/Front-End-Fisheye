@@ -154,8 +154,8 @@ form input {
 
 .photo-page-photographe {
   width: 20%;
-  -webkit-clip-path: ellipse(43% 43%);
-          clip-path: ellipse(43% 43%);
+  -webkit-clip-path: ellipse(37% 47%);
+          clip-path: ellipse(37% 47%);
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -210,7 +210,7 @@ form input {
 }
 
 .photograph-galery article {
-  width: 300px;
+  width: 30%;
   height: 266px;
   margin-bottom: 3%;
 }
@@ -387,35 +387,142 @@ form input {
   font-size: 20px;
 }
 
-@media screen and (min-width: 425px) and (max-width: 767px) {
-  .photographer_section {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+@media screen and (min-width: 425px) and (max-width: 770px) {
+  .logo {
+    margin: 2% 5%;
+    margin-left: 0%;
   }
   .photograph-header {
-    margin: 0 50px;
+    margin: 2% 5%;
+    height: 130px;
+  }
+  .photograph-header .container-button-infos .contact_button {
+    width: 35%;
+    font-size: 15px;
+    height: 35px;
+  }
+  .photograph-header .container-button-infos .container-infos h1 {
+    font-size: 20px;
+    margin-right: 0;
+  }
+  .photograph-header .container-button-infos .container-infos .city-country {
+    font-size: 15px;
+  }
+  .photograph-header .container-button-infos .container-infos p {
+    font-size: 15px;
+  }
+  .sort {
+    margin: 0 5%;
   }
   .photograph-galery {
-    margin: 50px 50px;
+    margin: 3% 5%;
   }
   .photograph-galery article {
     width: 30%;
-    border: red solid;
+  }
+  .photograph-galery article .media {
+    height: 80%;
+  }
+  .photograph-galery article .container-title-like .container-like {
+    width: 22%;
+  }
+  .photograph-galery article .container-title-like .container-like span {
+    margin-right: 5%;
+  }
+  .price-total-like {
+    width: 25%;
   }
   #contact_modal {
     right: 131px;
   }
-}
-
-@media screen and (min-width: 768px) and (max-width: 1100px) {
-  .photo-page-photographe {
-    -webkit-clip-path: ellipse(47% 42%);
-            clip-path: ellipse(47% 42%);
+  #contact_modal .modal {
+    height: 100%;
+  }
+  #contact_modal .modal header {
+    margin-bottom: 5%;
+  }
+  #contact_modal .modal header h2 {
+    font-size: 30px;
+    padding-bottom: 0;
+  }
+  #contact_modal .modal form div {
+    margin-bottom: 0;
+  }
+  #contact_modal .modal form label {
+    font-size: 15px;
+  }
+  .lightbox .lightbox-next, .lightbox .lightbox-prev {
+    background: url(../assets/icons/arrow.svg) center center/28px 37px no-repeat;
+    width: 28px;
+    height: 103%;
+  }
+  .lightbox .media-container img, .lightbox .media-container video {
+    height: 700px;
   }
 }
 
-@media screen and (min-width: 1600px) {
+@media screen and (min-width: 771px) and (max-width: 1200px) {
+  .photograph-header {
+    margin: 0 5%;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+  .photograph-header .container-button-infos {
+    width: 70%;
+    margin-left: 0;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+  .photograph-header .container-button-infos .contact_button {
+    width: 30%;
+  }
+  .photograph-header .container-button-infos .container-infos h1 {
+    font-size: 34px;
+    margin-right: 0%;
+  }
+  .sort {
+    width: 90%;
+    margin: 2% 5%;
+  }
+  .photograph-galery {
+    margin: 0 5%;
+  }
+  .photograph-galery article {
+    width: 30%;
+  }
+  .photograph-galery article .media {
+    height: 80%;
+  }
+  .photograph-galery article .container-title-like .container-like {
+    width: 22%;
+  }
+  .price-total-like {
+    width: 25%;
+  }
+  .photo-page-photographe {
+    -webkit-clip-path: ellipse(49% 39%);
+            clip-path: ellipse(49% 39%);
+  }
+  #contact_modal {
+    right: 0;
+  }
+  .lightbox .lightbox-next, .lightbox .lightbox-prev {
+    background: url(../assets/icons/arrow.svg) center center/50px 41px no-repeat;
+    width: 24px;
+  }
+  .lightbox .media-container img, .lightbox .media-container video {
+    height: 700px;
+  }
+}
+
+@media screen and (min-width: 1016px) and (max-width: 1210px) {
+  .photo-page-photographe {
+    -webkit-clip-path: ellipse(41% 45%);
+            clip-path: ellipse(41% 45%);
+  }
+}
+
+@media screen and (min-width: 1601px) {
   .lightbox .lightbox-close {
     text-indent: 10000px;
   }
