@@ -1,37 +1,13 @@
 @import"./mixin-variables";
 
 
+
 #contact_modal {
   display: none;
-}
-
-.photograph-header {
-  background-color: #FAFAFA;
-  margin: 0 5%;
-}
-
-.container-button-infos{
-  .contact_button {
-    font-size: 15px;
-    color: white;
-    width: 117px;
-    height: 50px;
-    border: none;
-    background-color: $background-color-button;
-    border-radius: 5px;
-    cursor: pointer;
-    &:hover{
-      @include hover-focus-button
-    }
-    &:focus{
-      @include hover-focus-button
-    }
-  }
-}
-#contact_modal {
   position: fixed;
-  top: 114px;
-  right: 283px;
+  top: 110px;
+  top:20%;
+  right: 25%;
   #error-firstname, #error-lastname, #error-email, #error-message {
     font-style: italic;
     margin-top: 0;
@@ -53,16 +29,8 @@
 .modal header {
   justify-content: space-between;
   width: 100%;
-}
 
-.modal header img {
-  cursor: pointer;
-  position: absolute;
-  right: 189px;
-  top: 30px;
-  width: 31px;
 }
-
 
 .modal header h2 {
   font-size: 40px;
@@ -73,6 +41,15 @@
   flex-direction: column;
   padding-bottom: 6%;
   text-align: initial;
+ 
+}
+
+.close-modal{
+  background-color: $background-color-modal-price;
+  border: none;
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
 }
 
 form {
@@ -118,21 +95,37 @@ form input {
   border-radius: 5px;
 }
 
-.photo-page-photographe{
-  width: 20%;
-  clip-path: ellipse(37% 47%);
-  object-fit: cover;
-}
-
 .photograph-header{
+  background-color: #FAFAFA;
+  margin: 0 5%;
+  padding-left: 2%;
+  padding-right: 2%;
   display: flex;
   justify-content: space-between;
   height: 180px;
+  align-items: center;
   .container-button-infos {
+    justify-content: space-between;
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
-    margin-left: 5%;
+    width: 60%;
+      .contact_button {
+        font-size: 15px;
+        color: white;
+        width: 117px;
+        height: 50px;
+        border: none;
+        background-color: $background-color-button;
+        border-radius: 5px;
+        cursor: pointer;
+        &:hover{
+          @include hover-focus-button
+        }
+        &:focus{
+          @include hover-focus-button
+        }
+      }
     .container-infos{
       h1{
         color: $name-photographer;
@@ -145,6 +138,12 @@ form input {
         color : $tagline-photographer
       }
     }
+  }
+  .photo-page-photographe{
+    object-fit: cover;
+    border-radius: 50%;
+    width: 15%;
+    height: 90%;
   }
 }
 
@@ -267,17 +266,13 @@ form input {
   }
  
   .media-container{
-    margin-left: 10%;
-    margin-right: 9%;
-    /*
-    pour centrer une image petite
-    */
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
     min-height: 100vh; //100% de la hauteur de l'écran
     img, video{
-      max-width: 100%;
+      max-width: 85%;
       width: 1050px;
       height: 700px;
       object-fit: contain;
@@ -295,11 +290,11 @@ form input {
 @media screen and (min-width:425px) and (max-width:770px){
   .photograph-header{
     margin : 0% 5%;
-    height: 130px;
+    height: 150px;
     .container-button-infos {
       margin-left: 0%;
+      width: 67%;
       .contact_button{
-        width: 25%;
         font-size: 10px;
         height: 35px;
       }
@@ -315,6 +310,10 @@ form input {
           font-size: 15px;
         }
       }
+    }
+    .photo-page-photographe{
+      width: 22%;
+      height: 79%;
     }
   }
   .sort {
@@ -346,19 +345,12 @@ form input {
     width: 35%;
   }
   #contact_modal {
-    right: 18px;
     .modal{
-      height: 100%;
       header{
-        h2{
-          font-size: 25px;
-          padding-bottom: 0;
-        }
-        img{
-          width : 20px;
-          right: 100px;
-        }
         margin-bottom: 5%;
+        h2{
+          font-size: 22px;
+        }
       }
       form div{
         margin-bottom: 0;
@@ -368,33 +360,33 @@ form input {
       }
     }
   }
-  .photo-page-photographe {
-    clip-path: ellipse(47% 35%);
-  }
   .lightbox{
     .lightbox-next, .lightbox-prev{
       background: url(../assets/icons/arrow.svg) center center/28px 37px no-repeat;
       width: 28px;
       height: 103%;
     }
-    .media-container{
-      margin-left: 8%;
-      margin-right: 8%;
-      img, video{
-        height: 700px;
-      }
-    }
   }
-  
 }
+@media screen and (min-width:771px) and (max-width:950px) {
+  .photo-page-photographe{
+    width: 23%;
+    height: 91%;
+  }
+}
+
+@media screen and (min-width:951px) and (max-width:1200px) {
+  .photo-page-photographe{
+    width: 19%;
+    height: 91%;
+  }
+}
+
 @media screen and (min-width:771px) and (max-width:1200px) {
   .photograph-header{
-    // margin: 0 5%;
-    justify-content: space-around;
     .container-button-infos{
       width: 70%;
       margin-left: 0;
-      justify-content: space-around;
       .contact_button{
         width: 30%;
       }
@@ -408,10 +400,8 @@ form input {
   }
   .sort{
     width: 90%;
-    // margin: 2% 5%;
   }
   .photograph-galery{
-    // margin: 0 5%;
     article{
       width: 30%;
       .media{
@@ -427,107 +417,33 @@ form input {
   .price-total-like{
     width: 25%;
   }
-  .photo-page-photographe{
-    clip-path: ellipse(49% 39%);
+  .modal header h2{
+    font-size: 29px;
   }
-  #contact_modal{
-    right: 0;
-  }
+ 
   .lightbox{
     .lightbox-next, .lightbox-prev{
       background: url(../assets/icons/arrow.svg) center center/50px 41px no-repeat;
       width: 24px;
     }
-    .media-container{
-      img, video {
-        height: 700px;
-      }
+  }
+}
+@media screen and (min-width:1201px) and (max-width:1600px) {
+  .photo-page-photographe{
+    width: 15%;
+    height: 90%;
+  }
+}
+
+@media screen and (min-width:2201px) {
+  .lightbox .media-container{
+    img, video{
+      height: 1500px;
     }
   }
-}
-
-// Breakpoints pour réglage media lightbox
-@media screen and (min-width:1016px) and (max-width:1210px) {
   .photo-page-photographe{
-    clip-path: ellipse(41% 45%);
-  }
-  #contact_modal {
-    right: 200px;
-    top: 100px
-  }
-}
-
-@media screen and (min-width:1330px) and (max-width:1400px) {
-  .lightbox .media-container{
-    margin-left: 11%;
-    margin-right: 10%;
-  }
-}
-@media screen and (min-width:1401px) and (max-width:1500px) {
-  .lightbox .media-container{
-    margin-left: 14%;
-  }
-}
-
-@media screen and (min-width:1501px) and (max-width:1599px) {
-  .lightbox .media-container{
-    margin-left: 16%;
-  }
-}
-@media screen and (min-width:1600px) and (max-width:1750px) {
-  .lightbox .media-container{
-    margin-left: 18%;
-  }
-  #contact_modal {
-    right: 400px;
-    top: 400px
-  }
-}
-
-@media screen and (min-width:1751px) and (max-width:1900px) {
-  .lightbox .media-container{
-    margin-left: 21%;
-  }
-  #contact_modal {
-    right: 500px;
-    top: 400px
-  }
-}
-@media screen and (min-width:1901px) and (max-width:2200px) {
-  .photo-page-photographe {
-    clip-path: ellipse(34% 48%);
-  }
-  .lightbox .media-container{
-    margin-left: 25%;
-  }
-  #contact_modal {
-    right: 650px;
-    top: 400px
-  }
-}
-@media screen and (min-width:2201px) and (max-width:2500px) {
-  .lightbox .media-container{
-    margin-left: 29%;
-  }
-  #contact_modal {
-    right: 900px;
-    top: 400px
-  }
-  .photo-page-photographe {
-    clip-path: ellipse(29% 47%);
-  }
-}
-
-@media screen and (min-width:2500px) {
-  .lightbox .media-container{
-    margin-left: 31%;
-  }
-  #contact_modal {
-    right: 900px;
-    top: 400px
-  }
-  .photo-page-photographe {
-    clip-path: ellipse(26% 47%);
+    width: 12%;
+    height: 90%;
   }
 }
 
@@ -549,9 +465,7 @@ form input {
   .photograph-header{
     height: 250px;
   }
-  // .photo-page-photographe{
-  //   clip-path: ellipse(41% 48%);
-  // }
+
   .photograph-header .container-button-infos .container-infos h1 {
     font-size: 50px;
   }
@@ -567,16 +481,15 @@ form input {
     width: 200px;
   }
   .sort {
-    // margin: 50px 100px;
     .container-sort{
-    .text-sort {
-      font-size: 30px;
+      .text-sort {
+        font-size: 30px;
+      }
+      #select-sort {
+        padding: 0.5%;
+        width: 10%;
+      }
     }
-    #select-sort {
-      padding: 0.5%;
-      width: 10%;
-    }
-  }
   }
   .photograph-galery article {
     width: 30%;
