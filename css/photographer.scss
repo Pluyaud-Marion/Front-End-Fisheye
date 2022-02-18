@@ -11,6 +11,7 @@
   #error-firstname, #error-lastname, #error-email, #error-message {
     font-style: italic;
     margin-top: 0;
+
   }
 }
 
@@ -438,7 +439,7 @@ form input {
 @media screen and (min-width:2201px) {
   .lightbox .media-container{
     img, video{
-      height: 1500px;
+      height: 1400px;
     }
   }
   .photo-page-photographe{

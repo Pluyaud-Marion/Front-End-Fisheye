@@ -14,11 +14,11 @@
 <body>
   <header role="banner">
     <a class="link-logo" href="index.html">
-      <img src="assets/images/logo.png" class="logo" alt="Fisheye Home page" />
+      <img src="assets/images/logo.png" class="logo" alt="logo Fisheye - Home page" />
 
     </a>
   </header>
-  <main id="main">
+  <main id="main" aria-hidden="false">
     <div class="photograph-header">
       <div class="container-button-infos">
         <button class="contact_button" aria-label="Contact Me" onclick="displayModal()">Contactez-moi</button>
@@ -38,30 +38,33 @@
     <div class="price-total-like"></div>
 
   </main>
-  <div id="contact_modal">
+  <div id="contact_modal" role="dialog" aria-hidden="true" aria-describedby="contact form"
+    aria-labelledby="contact-photographer">
     <div class="modal">
       <header>
         <h2 class="h2">Contactez-moi</h2>
         <!-- <img src="assets/icons/close.svg" onclick="closeModal()" alt="button close modal" -->
         <!-- aria-label="Close Contact form" /> -->
-        <button class="close-modal" onclick="closeModal()">X</button>
+        <button class="close-modal" aria-label="button close modal" onclick="closeModal()">X</button>
       </header>
       <form>
         <div>
           <label for="firstname">Prénom</label>
-          <input type="text" id="firstname" aria-labelledby3="First name" required />
+          <input type="text" id="firstname" aria-labelledby3="First name" required aria-required="true" />
           <p id="error-firstname"></p>
           <label for="lastname">Nom</label>
-          <input type="text" id="lastname" aria-labelledby5="Last name" required />
+          <input type="text" id="lastname" aria-labelledby5="Last name" required aria-required="true" />
           <p id="error-lastname"></p>
           <label for="email">Email</label>
-          <input type="email" id="email" aria-labelledby7="Email" required />
+          <input type="email" id="email" aria-labelledby7="Email" required aria-required="true" />
           <p id="error-email"></p>
           <label for="text">Votre message</label>
-          <textarea name="text" id="text" cols="90" rows="8" aria-labelledby9="Your message"></textarea>
+          <textarea name="text" id="text" cols="90" rows="8" aria-labelledby9="Your message" required
+            aria-required="true"></textarea>
           <p id="error-message"></p>
         </div>
-        <button type="submit" class="contact_button" id="button-submit" aria-label="Send">Envoyer</button>
+        <button type="submit" class="contact_button" id="button-submit"
+          aria-label="bouton pour soumettre le formulaire">Envoyer</button>
       </form>
     </div>
   </div>

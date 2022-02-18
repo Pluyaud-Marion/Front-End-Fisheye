@@ -9,11 +9,26 @@ const errorLastname = document.getElementById("error-lastname");
 const errorEmail = document.getElementById("error-email");
 const errorMessage = document.getElementById("error-message");
 const title = document.querySelector(".h2");
+let firstname = document.getElementById("firstname");
+let lastname = document.getElementById("lastname");
+let email = document.getElementById("email");
+let message = document.getElementById("text");
+
 const regexName = /^[a-zA-ZÀ-ÿ\s_-]{2,60}$/;
 
 function main() {
 	validateForm();
 }
+
+// const openModal = document.querySelector(".contact_button");
+// openModal.addEventListener("keydown", e => {
+// 	if (e.wich === 13) {
+// 		e.preventDefault();
+// 		displayModal();
+// 	}
+// });
+
+
 
 /*
 Déclenchée au click sur bouton "contactez-moi" (dans html)
@@ -21,11 +36,15 @@ Fait apparaitre la modale + passe le background du main et du header en gris
 Créé un span dans le h2 + y met le nom du photographe récupéré du LS
 */
 function displayModal() {
+	const buttonCloseModal = document.querySelector(".close-modal");
+
 	modal.style.display = "block";
 	
 	mainTag.style.backgroundColor = "rgba(196, 196, 196, 0.4)";
 	headerGlobalTag.style.backgroundColor = "rgba(196, 196, 196, 0.4)";
 	photographHeader.style.backgroundColor = "rgba(196, 196, 196, 0)";
+	mainTag.setAttribute("aria-hidden", "true"); //passe aria-hidden à true pour dissimuler main aux TA quand modal ouverte
+	modal.setAttribute("aria-hidden", "false"); // de base = aria-hidden=true sur la modale / passe aria-hidden à false pour dire au TA que modale est ouverte
 
 	
 	const tagNamePhotographer = document.createElement("span");
@@ -34,7 +53,10 @@ function displayModal() {
 	//récupération du nom du photographe dans LS
 	const namePhotographer = localStorage.getItem("name");
 	tagNamePhotographer.innerHTML = namePhotographer;
+	tagNamePhotographer.id = "contact-photographer";
 	modal.setAttribute("aria-labelledby2", "Contact me " + namePhotographer);
+	buttonCloseModal.focus(); // à l'ouverture de la modal, focus sur la croix pour fermer
+
 }
 
 /*
@@ -44,10 +66,10 @@ Appelée au click sur la croix pour fermer + à la soumission du formulaire
 function clearForm() {
 
 	
-	let firstname = document.getElementById("firstname");
-	let lastname = document.getElementById("lastname");
-	let email = document.getElementById("email");
-	let message = document.getElementById("text");
+	// let firstname = document.getElementById("firstname");
+	// let lastname = document.getElementById("lastname");
+	// let email = document.getElementById("email");
+	// let message = document.getElementById("text");
 
 	firstname.value = null;
 	lastname.value = null;
@@ -104,6 +126,7 @@ function validateForm() {
 		let lastname = document.getElementById("lastname").value;
 		let email = document.getElementById("email").value;
 		let message = document.getElementById("text").value;
+
 
 		checkNameMail(firstname, errorFirstname, regexName);
 		checkNameMail(lastname, errorLastname, regexName);

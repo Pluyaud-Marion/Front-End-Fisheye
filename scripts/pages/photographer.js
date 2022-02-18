@@ -271,12 +271,6 @@ class Lightbox {
 		const listTitle = links.map(link => link.dataset.title);
 
 
-		// tagTitle.forEach(title => {
-		// 	const listTitle = title.dataset.title;
-		// 	console.log(listTitle);
-		// });
-		
-
 		//pour chaque balise média on créé une instance de Lightbox
 		links.forEach(link => {
 			link.addEventListener("click", e =>{
@@ -416,6 +410,7 @@ class Lightbox {
 		const domLightbox = document.createElement("section");
 		domLightbox.classList.add("lightbox");
 		domLightbox.setAttribute("aria-label", "image closeup view");
+		domLightbox.setAttribute("aria-hidden", "false");
 		domLightbox.innerHTML = 
 			`<button type="button" aria-label="Close dialog" class="lightbox-close">Fermer</button>
 			<button type="button" aria-label="Next image" class="lightbox-next">Suivant</button>
