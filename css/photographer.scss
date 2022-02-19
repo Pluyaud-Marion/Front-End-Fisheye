@@ -51,6 +51,7 @@
   color: white;
   font-size: 25px;
   font-weight: bold;
+  align-self: baseline;
 }
 
 form {
@@ -279,7 +280,8 @@ form input {
       object-fit: contain;
     }
     p {
-      text-align: initial;
+      align-self: flex-start;
+      margin-left: 18%;
       color: $primary-color;
       font-weight: 400;
       font-size: 20px;

@@ -108,6 +108,8 @@ function displayPictureVideoFactory(item){
 		tagImg.src = `assets/images/${item.photographerId}/${item.image}`;
 		tagImg.className = "media";
 		tagImg.alt = item.alt;
+		tagImg.setAttribute("tabindex", "0");
+		tagImg.setAttribute("aria-label", `${item.title + " close up view"}`);
 		tagImg.dataset.title = item.title;
 	}
 	/*
@@ -119,6 +121,8 @@ function displayPictureVideoFactory(item){
 		tagVideo.src = `assets/images/${item.photographerId}/${item.video}`;
 		tagVideo.className = "media";
 		tagVideo.setAttribute("alt", item.alt);
+		tagVideo.setAttribute("tabindex", "0");
+		tagVideo.setAttribute("aria-label", `${item.title + " close up view"}`);
 		tagVideo.dataset.title = item.title;
 
 	}

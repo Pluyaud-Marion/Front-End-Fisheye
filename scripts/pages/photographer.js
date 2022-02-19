@@ -235,6 +235,7 @@ function sort(media) {
 			});
 			//appel de la fonction qui affiche les médias = ne fait afficher qu
 			displayMediaPhotographers(media);
+			Lightbox.init();
 					
 		} else if (valueSelect === "date") {
 			containerMedia.innerHTML = "";
@@ -243,6 +244,7 @@ function sort(media) {
 				return new Date(a.date) - new Date(b.date);
 			});
 			displayMediaPhotographers(media);
+			Lightbox.init();
 		} else {
 			containerMedia.innerHTML = "";
 	
@@ -251,6 +253,7 @@ function sort(media) {
 					return -1;
 			});
 			displayMediaPhotographers(media);
+			Lightbox.init();
 		}
 	});
 }
@@ -277,10 +280,19 @@ class Lightbox {
 				e.preventDefault();
 				const altCurrent = e.currentTarget.getAttribute("alt"); //récupère le alt de l'image cliquée
 				const titleCurrent = e.currentTarget.dataset.title;
-				//console.log(titleCurrent);
 				new Lightbox(e.currentTarget.getAttribute("src"), gallery, altAttribut, altCurrent,  listTitle, titleCurrent); //récupère l'url de l'image cliquée
 				
 			});	
+
+			link.addEventListener("keydown", e => {
+				if(e.key === "Enter"){
+					e.preventDefault();
+					const altCurrent = e.currentTarget.getAttribute("alt"); //récupère le alt de l'image cliquée
+					const titleCurrent = e.currentTarget.dataset.title;
+					new Lightbox(e.currentTarget.getAttribute("src"), gallery, altAttribut, altCurrent,  listTitle, titleCurrent);
+				}
+			});
+
 		});
 	}
 
@@ -415,7 +427,7 @@ class Lightbox {
 			`<button type="button" aria-label="Close dialog" class="lightbox-close">Fermer</button>
 			<button type="button" aria-label="Next image" class="lightbox-next">Suivant</button>
 			<button type="button" aria-label="Previous image" class="lightbox-prev">Précédent</button>
-			<div class="media-container"></div>
+			<div class="media-container" aria-label="media open view"></div>
 			`;
 
 		domLightbox.querySelector(".lightbox-close").addEventListener("click", this.close.bind(this));
