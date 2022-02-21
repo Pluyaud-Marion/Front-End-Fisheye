@@ -104,6 +104,7 @@ Retire la balise dernier enfant du titre
 par la suite fera la requête post pour la soumission du formulaire
 */
 function submitForm() {
+	const test = document.querySelector(".modal");
 	modal.style.display = "none";
 	photographHeader.style.backgroundColor = "#FAFAFA";
 	mainTag.style.backgroundColor = "#FFFFFF";
@@ -111,6 +112,7 @@ function submitForm() {
 
 	title.removeChild(title.lastChild);
 	clearForm();
+	alert("Votre message a bien été envoyé");
 }
 
 /*
