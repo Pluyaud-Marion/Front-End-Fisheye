@@ -20,15 +20,6 @@ function main() {
 	validateForm();
 }
 
-// const openModal = document.querySelector(".contact_button");
-// openModal.addEventListener("keydown", e => {
-// 	if (e.wich === 13) {
-// 		e.preventDefault();
-// 		displayModal();
-// 	}
-// });
-
-
 
 /*
 Déclenchée au click sur bouton "contactez-moi" (dans html)
@@ -64,12 +55,6 @@ Vide le formulaire (erreurs + value des inputs)
 Appelée au click sur la croix pour fermer + à la soumission du formulaire
 */
 function clearForm() {
-
-	
-	// let firstname = document.getElementById("firstname");
-	// let lastname = document.getElementById("lastname");
-	// let email = document.getElementById("email");
-	// let message = document.getElementById("text");
 
 	firstname.value = null;
 	lastname.value = null;

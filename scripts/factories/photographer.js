@@ -1,10 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 
-// const urlPhotographer = window.location.search;
-// const urlSearchParams = new URLSearchParams(urlPhotographer);
-// const idPhotographer = Number(urlSearchParams.get("id")); 
-
 function photographerFactory(data) {
 	const { name, portrait, city, country, price, tagline, id } = data;
 

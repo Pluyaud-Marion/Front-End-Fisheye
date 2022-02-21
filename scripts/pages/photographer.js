@@ -10,7 +10,6 @@ const arrayLikes = [];
 /*
 Fetch vers le json pour récupérer les données des photographes
 Met dans photographers les données et les retourne
-???
 */
 async function getElementsPhotographers(){
 	let photographers = [];
@@ -27,7 +26,6 @@ async function getElementsPhotographers(){
 /*
 Fetch vers le json pour récupérer les données medias des photographes
 Met dans media les données et les retourne
-???
 */
 async function getMediaPhotographers(){
 	let media = [];
@@ -126,13 +124,10 @@ function addLike(media){
 	for (item of media) {
 		if (idPhotographer === item.photographerId){ //cible le photographe
 			const tagNumberLike = document.getElementById(`${item.id}`);
-			//console.log("tagNumberLike", tagNumberLike); // les balises des nombres de likes, avant clic
 			
 			let numberLikes = Number(tagNumberLike.innerHTML); //transforme en number le numbre de likes
-			// console.log("numberLikes", numberLikes); // le nombre de likes avant clic
 
 			const idTagNumberLike = tagNumberLike.id;
-			// console.log("idTagNumberLike",idTagNumberLike); // l'id de la balise du nombre de likes
 
 			const iconLike = document.getElementById(`like-${item.id}`); // les balises des coeurs
 			const idIconLike = iconLike.id.split("-"); //retourne une tableau autour du - le 2ème élément du tableau est l'id 
@@ -323,7 +318,6 @@ class Lightbox {
 		this.url = url; //pour cibler l'image
 		this.altCurrent = altCurrent; // pour cibler le alt
 		this.titleCurrent = titleCurrent;
-		//console.log(titleCurrent);
 	
 		if (this.url.includes("jpg")) {
 			const image = new Image(); 
@@ -443,7 +437,6 @@ async function init() {
 	const { media } = await getMediaPhotographers();
 	displayDataPhotographers(photographers);
 	displayMediaPhotographers(media);
-	//addLike(media);
 	cardLikesAndPrice(photographers, media);
 	sort(media);
 	Lightbox.init();//
