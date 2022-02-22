@@ -17,6 +17,4 @@ Missions réalisées :
 
 Lien Github Pages : https://pluyaud-marion.github.io/MarionPluyaud_6_08022022/index.html
 
-Site compatible différents navigateurs : Chrome / Firefox / Safari
-
 Site passé avec succès au validateur : AChecker
