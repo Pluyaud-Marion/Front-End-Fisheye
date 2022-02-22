@@ -45,7 +45,8 @@ function displayModal() {
 	const namePhotographer = localStorage.getItem("name");
 	tagNamePhotographer.innerHTML = namePhotographer;
 	tagNamePhotographer.id = "contact-photographer";
-	modal.setAttribute("aria-labelledby2", "Contact me " + namePhotographer);
+	modal.setAttribute("aria-labelledby", "Contact me " + namePhotographer);
+	title.id = "Contact me " + namePhotographer;
 	buttonCloseModal.focus(); // à l'ouverture de la modal, focus sur la croix pour fermer
 
 }

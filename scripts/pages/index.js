@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 
-
 async function getPhotographers() {
 
 	let photographers = [];

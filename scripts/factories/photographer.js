@@ -24,6 +24,7 @@ function photographerFactory(data) {
 		const img = document.createElement( "img" );
 		img.setAttribute("src", picture);
 		img.setAttribute("alt", name );
+		img.setAttribute("aria-label", name );
 
 		const h2 = document.createElement( "h2" );
 		h2.textContent = name;
@@ -75,7 +76,7 @@ function displayPictureVideoFactory(item){
 	tagTitle.className = "title";
 	
 	tagTitle.innerHTML = item.title;
-	
+	tagTitle.setAttribute("tabindex", "0");
 
 	const divContainerLike = document.createElement("div");
 	divContainerTitleLike.appendChild(divContainerLike);
@@ -86,14 +87,15 @@ function displayPictureVideoFactory(item){
 	tagLikes.innerHTML = item.likes;
 	// donne l'id = id à la balise du chiffre des likes
 	tagLikes.id = `${item.id}`;
+	tagLikes.setAttribute("tabindex","0");
 	
 	const like = document.createElement("i");
 	divContainerLike.appendChild(like);
 	like.className = "fas fa-heart";
-	like.setAttribute("aria-label", "likes");
+	like.setAttribute("aria-label", `you like ${item.title}`);
 	// donne l'id = like-id à la balise du coeur
 	like.id = `like-${item.id}`;
-
+	like.setAttribute("tabindex", "0");
 
 	/*
 	fonction qui créé une balise img + chemin dans src
