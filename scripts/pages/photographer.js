@@ -18,7 +18,7 @@ async function getElementsPhotographers(){
 		.then(response => response.json())
 		.then(data => photographers = data.photographers)
 		.catch(error => error);
-	
+	console.log(photographers);
 	return ({
 		photographers: [...photographers]});
 }
