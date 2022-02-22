@@ -2,8 +2,8 @@
   display: none;
   position: absolute;
   top: 110px;
-  top: 20%;
-  right: 25%;
+  top: 5%;
+  right: 22%;
 }
 
 #contact_modal #error-firstname, #contact_modal #error-lastname, #contact_modal #error-email, #contact_modal #error-message {
@@ -199,8 +199,8 @@ form input {
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 50%;
-  width: 15%;
-  height: 90%;
+  width: 150px;
+  height: 150px;
 }
 
 .photograph-galery {
@@ -416,8 +416,8 @@ form input {
     font-size: 15px;
   }
   .photograph-header .photo-page-photographe {
-    width: 22%;
-    height: 79%;
+    width: 100px;
+    height: 100px;
   }
   .sort {
     margin: 3% 5%;
@@ -468,20 +468,12 @@ form input {
 }
 
 @media screen and (min-width: 771px) and (max-width: 950px) {
-  .photo-page-photographe {
-    width: 23%;
-    height: 91%;
-  }
   #contact_modal {
     right: 5%;
   }
 }
 
 @media screen and (min-width: 951px) and (max-width: 1200px) {
-  .photo-page-photographe {
-    width: 19%;
-    height: 91%;
-  }
   #contact_modal {
     right: 6%;
   }
@@ -524,9 +516,10 @@ form input {
 }
 
 @media screen and (min-width: 1201px) and (max-width: 1600px) {
-  .photo-page-photographe {
-    width: 15%;
-    height: 90%;
+  .photograph-header .container-button-infos .contact_button {
+    width: 150px;
+    height: 60px;
+    font-size: 18px;
   }
 }
 
@@ -534,13 +527,17 @@ form input {
   .lightbox .media-container img, .lightbox .media-container video {
     height: 1400px;
   }
-  .photo-page-photographe {
-    width: 12%;
-    height: 90%;
+  #contact_modal {
+    right: 36%;
   }
 }
 
 @media screen and (min-width: 1601px) {
+  .photograph-header .container-button-infos .contact_button {
+    width: 250px;
+    height: 77px;
+    font-size: 27px;
+  }
   .lightbox .lightbox-close {
     text-indent: 10000px;
   }
@@ -609,6 +606,10 @@ form input {
   }
   form input {
     height: 60px;
+  }
+  .photograph-header .photo-page-photographe {
+    width: 200px;
+    height: 200px;
   }
 }
 /*# sourceMappingURL=photographer.css.map */
