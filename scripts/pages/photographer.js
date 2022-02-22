@@ -115,45 +115,6 @@ function displayMediaPhotographers(media) {
 }
 
 /*
-Gestion des likes - incrémente le nombre 
-id du chiffre des likes = id du media
-id du coeur = like-id du media
-si les 2 chiffres sont identiques -> permet de cibler et d'augmenter le bon chiffre au clic sur le coeur = on incrémente le chiffre
-*/
-// function addLike(media){
-// 	let tagTotalLike = document.createElement("span");
-
-// 	for (item of media) {
-// 		if (idPhotographer === item.photographerId){ //cible le photographe
-// 			const tagNumberLike = document.getElementById(`${item.id}`);
-			
-// 			let numberLikes = Number(tagNumberLike.innerHTML); //transforme en number le numbre de likes
-
-// 			const idTagNumberLike = tagNumberLike.id;
-
-// 			const iconLike = document.getElementById(`like-${item.id}`); // les balises des coeurs
-// 			const idIconLike = iconLike.id.split("-"); //retourne une tableau autour du - le 2ème élément du tableau est l'id 
-		
-// 			iconLike.addEventListener("click", () => {
-// 				if(idIconLike[1] === idTagNumberLike){
-// 					tagNumberLike.innerHTML++;
-// 					totalLikes++;
-// 					//si nouveau clic = mise à jour
-// 					tagTotalLike.innerHTML = Number(totalLikes);
-// 				}
-// 			});
-// 			arrayLikes.push(numberLikes);
-// 		}
-// 	}
-// 	//valeur initiale = avant clic sur like
-// 	const reducer = (previousValue, currentValue) => previousValue + currentValue;
-// 	let totalLikes = arrayLikes.reduce(reducer);
-// 	tagTotalLike.innerHTML = Number(totalLikes);
-// }
-
-
-
-/*
 Créé la carte avec total des likes et prix
 Créé les balises et utilise reducer pour calcul du total
 */
@@ -172,6 +133,7 @@ function cardLikesAndPrice(photographers, media) {
 	// création span total des likes
 	let tagTotalLike = document.createElement("span");
 	tagContainer.appendChild(tagTotalLike);
+	tagTotalLike.className = "number-likes";
 
 	const like = document.createElement("i");
 	tagContainer.appendChild(like);
@@ -186,34 +148,45 @@ function cardLikesAndPrice(photographers, media) {
 
 	for(item of media) {
 		if (idPhotographer === item.photographerId){ //cible le photographe
+			//récupère toutes les balises avec le nombre de likes
 			const tagNumberLike = document.getElementById(`${item.id}`);
-			let numberLikes = Number(tagNumberLike.innerHTML);
+			let numberLikes = Number(tagNumberLike.innerHTML); //isole le chiffre
+			arrayLikes.push(numberLikes);	//ajoute le chiffre dans le tableau pour chaque media	
+		}
+	}
+	// calcule le total des likes de la page et l'affiche
+	const reducer = (previousValue, currentValue) => previousValue + currentValue;
+	let totalLikes = arrayLikes.reduce(reducer);
+	tagTotalLike.innerHTML = Number(totalLikes);
+}
+
+
+/*
+Gestion des likes - incrémente le nombre 
+id du chiffre des likes = id du media
+id du coeur = like-id du media
+si les 2 chiffres sont identiques -> permet de cibler et d'augmenter le bon chiffre au clic sur le coeur = on incrémente le chiffre
+*/
+function addLike(media){
+
+	const tagTotalLike = document.querySelector(".number-likes");
+	for (item of media) {
+		if (idPhotographer === item.photographerId){ //cible le photographe
+			const tagNumberLike = document.getElementById(`${item.id}`);
+			
 			const idTagNumberLike = tagNumberLike.id;
-			const iconLike = document.getElementById(`like-${item.id}`);
-			const idIconLike = iconLike.id.split("-");
 
-
+			const iconLike = document.getElementById(`like-${item.id}`); // les balises des coeurs
+			const idIconLike = iconLike.id.split("-"); //retourne une tableau autour du - le 2ème élément du tableau est l'id 
+		
 			iconLike.addEventListener("click", () => {
 				if(idIconLike[1] === idTagNumberLike){
-					tagNumberLike.innerHTML++;
-					totalLikes++;
-					//si nouveau clic = mise à jour
+					tagNumberLike.innerHTML++; //ajoute au like du media
+					totalLikes++; //ajoute au total
+					//affiche le nouveau chiffre sur la page
 					tagTotalLike.innerHTML = Number(totalLikes);
 				}
 			});
-			iconLike.addEventListener("keydown", e => {
-				if(e.key === "Enter") {
-					//e.preventDefault();
-					if(idIconLike[1] === idTagNumberLike){
-						tagNumberLike.innerHTML++;
-						totalLikes++;
-						console.log("enter");
-						//si nouveau clic = mise à jour
-						tagTotalLike.innerHTML = Number(totalLikes);
-					}
-				}
-			});
-			arrayLikes.push(numberLikes);		
 		}
 	}
 	//valeur initiale = avant clic sur like
@@ -221,7 +194,6 @@ function cardLikesAndPrice(photographers, media) {
 	let totalLikes = arrayLikes.reduce(reducer);
 	tagTotalLike.innerHTML = Number(totalLikes);
 }
-
 
 /*
 Trie les médias par popularité / date / titre
@@ -246,7 +218,8 @@ function sort(media, photographers) {
 			//appel de la fonction qui affiche les médias = ne fait afficher qu
 			displayMediaPhotographers(media);
 			Lightbox.init();
-			cardLikesAndPrice(photographers, media);
+			addLike(media);
+			//cardLikesAndPrice(photographers, media);
 					
 		} else if (valueSelect === "date") {
 			containerMedia.innerHTML = "";
@@ -256,7 +229,8 @@ function sort(media, photographers) {
 			});
 			displayMediaPhotographers(media);
 			Lightbox.init();
-			cardLikesAndPrice(photographers, media);
+			addLike(media);
+			//cardLikesAndPrice(photographers, media);
 
 		} else if(valueSelect === "title") {
 			containerMedia.innerHTML = "";
@@ -267,7 +241,8 @@ function sort(media, photographers) {
 			});
 			displayMediaPhotographers(media);
 			Lightbox.init();
-			cardLikesAndPrice(photographers, media);
+			addLike(media);
+			//cardLikesAndPrice(photographers, media);
 		}
 	});
 }
@@ -457,6 +432,7 @@ async function init() {
 	displayDataPhotographers(photographers);
 	displayMediaPhotographers(media);
 	cardLikesAndPrice(photographers, media);
+	addLike(media);
 	sort(media, photographers);
 	Lightbox.init();//
 
