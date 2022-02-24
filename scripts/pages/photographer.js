@@ -104,11 +104,13 @@ function displayMediaPhotographers(media) {
 		if (idPhotographer === item.photographerId) { // cible le photographe avec l'id dans l'url 
 			
 			const factoryModel = displayPictureVideoFactory(item); //appel de la factory qui créé toutes les balises sauf img et video
-
+			
 			if(item.image) { //s'il y a une image, appelle la fonction qui créé balise img dans la factory
 				factoryModel.createPicture(item);
-			} else { // sinon = vidéo, appelle la fonction qui créé balise video dans la factory
+			} else if(item.video) { // sinon = vidéo, appelle la fonction qui créé balise video dans la factory
 				factoryModel.createVideo(item);
+			} else {
+				console.error("Problème de remontée des données back-end");
 			}
 		}
 	}
@@ -187,6 +189,16 @@ function addLike(media){
 					tagTotalLike.innerHTML = Number(totalLikes);
 				}
 			});
+			iconLike.addEventListener("keydown", e => {
+				if(idIconLike[1] === idTagNumberLike){
+					if(e.key === "Enter"){
+						tagNumberLike.innerHTML++; //ajoute au like du media
+						totalLikes++; //ajoute au total
+						//affiche le nouveau chiffre sur la page
+						tagTotalLike.innerHTML = Number(totalLikes);
+					}
+				}
+			});
 		}
 	}
 	//valeur initiale = avant clic sur like
@@ -198,7 +210,7 @@ function addLike(media){
 /*
 Trie les médias par popularité / date / titre
 */
-function sort(media, photographers) {
+function sort(media) {
 	const containerMedia = document.querySelector(".photograph-galery");
 	const select = document.querySelector("#select-sort");
 
@@ -219,7 +231,6 @@ function sort(media, photographers) {
 			displayMediaPhotographers(media);
 			Lightbox.init();
 			addLike(media);
-			//cardLikesAndPrice(photographers, media);
 					
 		} else if (valueSelect === "date") {
 			containerMedia.innerHTML = "";
@@ -230,7 +241,6 @@ function sort(media, photographers) {
 			displayMediaPhotographers(media);
 			Lightbox.init();
 			addLike(media);
-			//cardLikesAndPrice(photographers, media);
 
 		} else if(valueSelect === "title") {
 			containerMedia.innerHTML = "";
@@ -242,7 +252,6 @@ function sort(media, photographers) {
 			displayMediaPhotographers(media);
 			Lightbox.init();
 			addLike(media);
-			//cardLikesAndPrice(photographers, media);
 		}
 	});
 }
@@ -356,7 +365,6 @@ class Lightbox {
 	//méthode qui prend en paramètre un évenement de type mouse event
 	close(e) {
 		e.preventDefault();
-		//this.element.classList.add("fadeOut");
 		this.element.parentElement.removeChild(this.element);
 		document.removeEventListener("keyup", this.onKeyUp);
 
@@ -433,7 +441,7 @@ async function init() {
 	displayMediaPhotographers(media);
 	cardLikesAndPrice(photographers, media);
 	addLike(media);
-	sort(media, photographers);
+	sort(media);
 	Lightbox.init();//
 
 }

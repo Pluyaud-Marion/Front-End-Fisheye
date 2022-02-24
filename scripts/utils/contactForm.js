@@ -110,10 +110,10 @@ function validateForm() {
 	const regexEmail = /^[^@\s]{2,30}@[^@\s]{2,30}\.[^@\s]{2,5}$/;
 	submitButton.addEventListener("click", event => {
 		event.preventDefault();
-		let firstname = document.getElementById("firstname").value;
-		let lastname = document.getElementById("lastname").value;
-		let email = document.getElementById("email").value;
-		let message = document.getElementById("text").value;
+		let firstname = document.getElementById("firstname").value.trim();
+		let lastname = document.getElementById("lastname").value.trim();
+		let email = document.getElementById("email").value.trim();
+		let message = document.getElementById("text").value.trim();
 
 
 		checkNameMail(firstname, errorFirstname, regexName);

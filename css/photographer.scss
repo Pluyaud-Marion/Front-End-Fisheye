@@ -3,9 +3,13 @@
 #contact_modal {
   display: none;
   position: absolute;
-  top: 110px;
-  top:5%;
-  right: 22%;
+  top:0%;
+  bottom:0%;
+  right: 0%;
+  left: 0%;
+  height: 500px;
+  width: 65%;
+  margin: 3% auto;
  
   #error-firstname, #error-lastname, #error-email, #error-message {
     font-style: italic;
@@ -349,7 +353,6 @@ form input {
     width: 35%;
   }
   #contact_modal {
-    right: 0;
     .modal{
       header{
         margin-bottom: 5%;
@@ -371,18 +374,6 @@ form input {
       width: 28px;
       height: 103%;
     }
-  }
-}
-@media screen and (min-width:771px) and (max-width:950px) {
-  #contact_modal {
-    right: 5%;
-  }
-  
-}
-
-@media screen and (min-width:951px) and (max-width:1200px) {
-  #contact_modal {
-    right: 6%;
   }
 }
 
@@ -446,10 +437,6 @@ form input {
     img, video{
       height: 1400px;
     }
-  }
- 
-  #contact_modal {
-    right: 36%;
   }
 }
 

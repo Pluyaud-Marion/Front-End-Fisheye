@@ -1,9 +1,13 @@
 #contact_modal {
   display: none;
   position: absolute;
-  top: 110px;
-  top: 5%;
-  right: 22%;
+  top: 0%;
+  bottom: 0%;
+  right: 0%;
+  left: 0%;
+  height: 500px;
+  width: 65%;
+  margin: 3% auto;
 }
 
 #contact_modal #error-firstname, #contact_modal #error-lastname, #contact_modal #error-email, #contact_modal #error-message {
@@ -445,9 +449,6 @@ form input {
   .price-total-like {
     width: 35%;
   }
-  #contact_modal {
-    right: 0;
-  }
   #contact_modal .modal header {
     margin-bottom: 5%;
   }
@@ -464,18 +465,6 @@ form input {
     background: url(../assets/icons/arrow.svg) center center/28px 37px no-repeat;
     width: 28px;
     height: 103%;
-  }
-}
-
-@media screen and (min-width: 771px) and (max-width: 950px) {
-  #contact_modal {
-    right: 5%;
-  }
-}
-
-@media screen and (min-width: 951px) and (max-width: 1200px) {
-  #contact_modal {
-    right: 6%;
   }
 }
 
@@ -526,9 +515,6 @@ form input {
 @media screen and (min-width: 2201px) {
   .lightbox .media-container img, .lightbox .media-container video {
     height: 1400px;
-  }
-  #contact_modal {
-    right: 36%;
   }
 }
 
