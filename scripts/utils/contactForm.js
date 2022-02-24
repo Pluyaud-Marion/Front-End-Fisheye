@@ -27,10 +27,11 @@ Fait apparaitre la modale + passe le background du main et du header en gris
 Créé un span dans le h2 + y met le nom du photographe récupéré du LS
 */
 function displayModal() {
+	const likes = document.querySelector(".price-total-like");
 	const buttonCloseModal = document.querySelector(".close-modal");
 
 	modal.style.display = "block";
-	
+	likes.style.opacity = "0.5";
 	mainTag.style.backgroundColor = "rgba(196, 196, 196, 0.4)";
 	headerGlobalTag.style.backgroundColor = "rgba(196, 196, 196, 0.4)";
 	photographHeader.style.backgroundColor = "rgba(196, 196, 196, 0)";
@@ -74,7 +75,9 @@ Retire l'affichage de la modale + passe les backgrounds en blanc
 retire la balise dernier enfant du titre
 */
 function closeModal() {
+	const likes = document.querySelector(".price-total-like");
 	modal.style.display = "none";
+	likes.style.opacity = "1";
 	photographHeader.style.backgroundColor = "#FAFAFA";
 	mainTag.style.backgroundColor = "#FFFFFF";
 	headerGlobalTag.style.backgroundColor = "#FFFFFF";
@@ -90,7 +93,6 @@ Retire la balise dernier enfant du titre
 par la suite fera la requête post pour la soumission du formulaire
 */
 function submitForm() {
-	const test = document.querySelector(".modal");
 	modal.style.display = "none";
 	photographHeader.style.backgroundColor = "#FAFAFA";
 	mainTag.style.backgroundColor = "#FFFFFF";
