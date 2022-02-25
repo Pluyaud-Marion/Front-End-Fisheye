@@ -92,6 +92,8 @@ Retire la balise dernier enfant du titre
 par la suite fera la requête post pour la soumission du formulaire
 */
 function submitForm() {
+	const likes = document.querySelector(".price-total-like");
+	likes.style.opacity = "1";
 	modal.style.display = "none";
 	photographHeader.style.backgroundColor = "#FAFAFA";
 	mainTag.style.backgroundColor = "#FFFFFF";
