@@ -55,7 +55,7 @@ function displayDataPhotographers(photographers) {
 	const photographHeader = document.querySelector(".photograph-header");
 	const containerButtonInfos = document.querySelector(".container-button-infos");
 
-	for (photographer of photographers) {
+	for (const photographer of photographers) {
 		if (idPhotographer === photographer.id) { // cible le photographe avec l'id dans l'url 
 			const divHeader = document.createElement("div");
 			containerButtonInfos.appendChild(divHeader);
@@ -121,7 +121,6 @@ Créé la carte avec total des likes et prix
 Créé les balises et utilise reducer pour calcul du total
 */
 function cardLikesAndPrice(photographers, media) {
-
 	const tagPriceTotalLike = document.querySelector(".price-total-like");
 	// création span prix
 	const tagPrice = document.createElement("span");
@@ -142,7 +141,7 @@ function cardLikesAndPrice(photographers, media) {
 	like.className = "fas fa-heart";
 
 	// boucle sur chaque photographe pour récupérer dans le Json le prix
-	for(photographer of photographers) {
+	for(const photographer of photographers) {
 		if (idPhotographer === photographer.id){ //cible le photographe
 			tagPrice.innerHTML = photographer.price + "€ / jour";
 		}
@@ -204,7 +203,6 @@ function addLike(media){
 	//valeur initiale = avant clic sur like
 	const reducer = (previousValue, currentValue) => previousValue + currentValue;
 	let totalLikes = arrayLikes.reduce(reducer);
-	tagTotalLike.innerHTML = Number(totalLikes);
 }
 
 /*
@@ -227,7 +225,7 @@ function sort(media) {
 			media.sort((a, b) =>{
 				return b.likes - a.likes;
 			});
-			//appel de la fonction qui affiche les médias = ne fait afficher qu
+			//appel de la fonction qui affiche les médias
 			displayMediaPhotographers(media);
 			Lightbox.init();
 			addLike(media);

@@ -38,7 +38,6 @@ function displayModal() {
 	mainTag.setAttribute("aria-hidden", "true"); //passe aria-hidden à true pour dissimuler main aux TA quand modal ouverte
 	modal.setAttribute("aria-hidden", "false"); // de base = aria-hidden=true sur la modale / passe aria-hidden à false pour dire au TA que modale est ouverte
 
-	
 	const tagNamePhotographer = document.createElement("span");
 	title.appendChild(tagNamePhotographer);
 

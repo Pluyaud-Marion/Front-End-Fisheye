@@ -10,9 +10,9 @@ async function getPhotographers() {
 		.catch(error => error);
 	
 	console.log(photographers, [...photographers]);
-	// return ({
-	// 	photographers: [...photographers]});
-	return {photographers};
+	return ({
+		photographers: [...photographers]});
+	//return {photographers};
 }
 
 /*
