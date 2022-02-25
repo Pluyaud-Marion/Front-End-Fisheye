@@ -9,7 +9,6 @@ async function getPhotographers() {
 		.then(data => photographers = data.photographers)
 		.catch(error => error);
 	
-	console.log(photographers, [...photographers]);
 	return ({
 		photographers: [...photographers]});
 	//return {photographers};

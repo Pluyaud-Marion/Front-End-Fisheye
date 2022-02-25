@@ -382,7 +382,7 @@ form input {
 .lightbox .media-container img, .lightbox .media-container video {
   max-width: 85%;
   width: 1050px;
-  height: 700px;
+  height: 500px;
   -o-object-fit: contain;
      object-fit: contain;
 }
